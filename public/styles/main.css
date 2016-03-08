@@ -1,0 +1,15 @@
+.bad {
+  color: red;
+}
+
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+nav li {
+  display: inline-block;
+  margin-left: 20px;
+  margin-right: 20px;
+  float: right;
+}

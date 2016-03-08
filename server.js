@@ -16,7 +16,7 @@ const MONGODB_URL_PREFIX = MONGODB_USER ? `${MONGODB_USER}:${MONGODB_PASS}@`: ''
 
 const MONGO_URL = `mongodb://${MONGODB_URL_PREFIX}${MONGODB_HOST}:${MONGODB_PORT}/civic-citizen`;
 
-// app.set('view engine', 'html');
+app.set('view engine', 'jade');
 
 // app.use(express.static('public'));
 app.use(express.static(__dirname + '/public'));
@@ -24,11 +24,11 @@ app.use(bodyParser.urlencoded( {extended: false} ) );
 app.use(bodyParser.json() );
 
 app.get('/', (req, res) => {
-  res.sendFile('/index');
+  res.render('index');
 });
 
 app.get('/repfind', (req, res) => {
-  res.sendFile('/repfind.html');
+  res.render('find');
 });
 
 app.post('/repfind', (req, res) => {
