@@ -8,6 +8,7 @@ const request = require('request');
 const app = express();
 
 const Person = require('./models/person');
+const Myreps = require('./models/myreps');
 
 const PORT = process.env.PORT || 3000;
 const MONGODB_HOST = process.env.MONGODB_HOST || 'localhost';
@@ -43,19 +44,74 @@ app.post('/repfind', (req, res) => {
   request.get(url, (err, response, data) => {
     if (err) throw err;
 
-  const politics = {
-    mayor: String,
-    citycouncil: String,
-    citydistrict: Number,
-    governer: String,
-    congressmembers: String,
-    congressdistrict: Number,
-    senators: String,
-    everythingelse: JSON.parse(data)
-  };
+    var parsedData = JSON.parse(data);
+
+    let state = parsedData.normalizedInput.state;
+    state = state.toLowerCase();
+    let stateName = parsedData.divisions[`ocd-division/country:us/state:${state}`].name;
+
+    let cdIndex = data.indexOf('/cd:')
+    var cd = parseInt( data.substr(cdIndex + 4, 2) );
+    let officeIndex = parsedData.divisions[`ocd-division/country:us/state:${state}/cd:${cd}`].officeIndices[0];
+    let officialIndex = parsedData.offices[officeIndex].officialIndices[0];
+    let actualMember = parsedData.officials[officialIndex];
+
+    const displayInfo = {
+      state: {
+        abbr: state,
+        name: stateName
+      },
+      congressdistrict: cd,
+      congressmember: actualMember,
+      divisions: parsedData.divisions,
+      offices: parsedData.offices,
+      officials: parsedData.officials,
+      everythingelse: parsedData
+    };
+
+    const personsReps = new Myreps({
+    senator1: {
+        name: String,
+        website: String,
+        photo: String
+    },
+    senator2: {
+        name: String,
+        website: String,
+        photo: String
+    },
+    congressMember: {
+        name: actualMember.name,
+        website: actualMember.urls[0],
+        photo: actualMember.photoUrl
+    },
+    congressDistrict: cd,
+    stateSenator: {
+        name: String,
+        website: String,
+        photo: String
+    },
+    stateSenateDistrict: Number,
+    stateHouse: {
+        name: String,
+        website: String,
+        photo: String
+    },
+    stateHouseDistrict: Number,
+    governer: {
+        name: String,
+        website: String,
+        photo: String
+    },
+    mayor: {
+        name: String,
+        website: String,
+        photo: String
+    }
+  });
 
 
-    res.send(politics);
+    res.send(displayInfo);
   });
 });
 
