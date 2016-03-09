@@ -1,5 +1,5 @@
-.bad {
-  color: red;
+.spacer {
+ min-height: 30px;
 }
 
 nav {
@@ -12,4 +12,10 @@ nav li {
   margin-left: 20px;
   margin-right: 20px;
   float: right;
+}
+
+footer {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
 }

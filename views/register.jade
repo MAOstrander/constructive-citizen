@@ -1,0 +1,66 @@
+extends ../templates/basic.jade
+
+block content
+  h1 Register for a new account
+  h3 Thank you for choosing to take the first step to becoming politically active
+
+  if message
+    h2= message
+
+  form(method='POST', action='/register')
+    fieldset
+      legend Personal Info
+      .input-group
+        label(for='email') Email
+        input(type='email', name='email', placeholder='email@email.com', required, value=email)
+      .input-group
+        label(for='f-name') First Name
+        input(type='text', name='fName', required)
+      .input-group
+        label(for='l-name') Last Name
+        input(type='text', name='lName', required)
+      .input-group
+        label(for='byear') Date of Birth
+        select(name='bmonth')
+          option(value='0' selected) January
+          option(value='1') February
+          option(value='2') March
+          option(value='3') April
+          option(value='4') May
+          option(value='5') June
+          option(value='6') July
+          option(value='7') August
+          option(value='8') September
+          option(value='9') October
+          option(value='10') November
+          option(value='11') December
+        input(type='number', min='1', max='31', name='bday')
+        input(type='number', min='1900', max='2100', name='byear' required)
+    fieldset
+      legend Legal Residence
+      .input-group
+        label(for='street') Street Address
+        input(type='text', name='street', required)
+      .input-group
+        label(for='city') City
+        input(type='text', name='city', required)
+      .input-group
+        label(for='state') State
+        input(type='text', name='state', required)
+      .input-group
+        label(for='zip') Zipcode
+        input(type='number', min='00000', max='99999' name='zip')
+      .input-group
+        label Are you a US Citizen?
+        label Yes
+          input(type='radio' name='citizen', value='true', checked)
+        label No
+          input(type='radio' name='citizen', value='false')
+    //- fieldset
+    //-   legend Optional
+    //-   .input-group
+    //-     label(for='party') Any party affiliations?
+    //-     input(type='text', name='party')
+
+    .input-group
+      input(type='submit', value='Sign up')

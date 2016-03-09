@@ -7,6 +7,8 @@ const mongoose = require('mongoose');
 const request = require('request');
 const app = express();
 
+const Person = require('./models/person');
+
 const PORT = process.env.PORT || 3000;
 const MONGODB_HOST = process.env.MONGODB_HOST || 'localhost';
 const MONGODB_PORT = process.env.MONGODB_PORT || 27017; // eslint-disable-line no-magic-numbers
@@ -41,8 +43,55 @@ app.post('/repfind', (req, res) => {
   request.get(url, (err, response, data) => {
     if (err) throw err;
 
-    res.send(JSON.parse(data));
+  const politics = {
+    mayor: String,
+    citycouncil: String,
+    citydistrict: Number,
+    governer: String,
+    congressmembers: String,
+    congressdistrict: Number,
+    senators: String,
+    everythingelse: JSON.parse(data)
+  };
+
+
+    res.send(politics);
   });
+});
+
+app.get('/register', (req, res) => {
+  res.render('register');
+});
+
+app.post('/register', (req, res) => {
+  console.log("What was typed in? >>>>", req.body);
+  const dob = new Date(req.body.byear, req.body.bmonth, req.body.bday);
+  const now = new Date();
+  // If the person is not a citizen or less than 18 they can't currently vote
+  let canVote = req.body.citizen;
+  if ((now - dob) < (18 * 365 * 24 * 60 * 60 * 1000)) {
+    canVote = false;
+  }
+
+  const newPerson = new Person({
+    email: req.body.email,
+    fName: req.body.fName,
+    lName: req.body.lName,
+    dob: dob,
+    address: req.body.street,
+    city: req.body.city,
+    state: req.body.state,
+    zip: req.body.zip,
+    canVote: canVote
+  });
+
+  console.log("newPerson", newPerson);
+  // newPerson.save( (err) => {
+  //   if (err) throw err;
+
+    res.send(`Welcome ${newPerson.fName}`);
+  // });
+
 });
 
 
