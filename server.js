@@ -51,10 +51,18 @@ app.post('/repfind', (req, res) => {
     let stateName = parsedData.divisions[`ocd-division/country:us/state:${state}`].name;
 
     let cdIndex = data.indexOf('/cd:')
-    var cd = parseInt( data.substr(cdIndex + 4, 2) );
-    let officeIndex = parsedData.divisions[`ocd-division/country:us/state:${state}/cd:${cd}`].officeIndices[0];
-    let officialIndex = parsedData.offices[officeIndex].officialIndices[0];
-    let actualMember = parsedData.officials[officialIndex];
+    let cd = parseInt( data.substr(cdIndex + 4, 2) );
+    let congressOfficeIndex = parsedData.divisions[`ocd-division/country:us/state:${state}/cd:${cd}`].officeIndices[0];
+    let congressOfficialIndex = parsedData.offices[congressOfficeIndex].officialIndices[0];
+    let actualMember = parsedData.officials[congressOfficialIndex];
+
+    let stateOfficeIndices = parsedData.divisions[`ocd-division/country:us/state:${state}`].officeIndices;
+
+    let stateOfficialIndices = [];
+    for (let i = 0; i < stateOfficeIndices.length; i++) {
+      stateOfficialIndices[i] = parsedData.offices[i].officialIndices[i];
+    }
+
 
     const displayInfo = {
       state: {
@@ -63,6 +71,8 @@ app.post('/repfind', (req, res) => {
       },
       congressdistrict: cd,
       congressmember: actualMember,
+      searchingforSenate: stateOfficeIndices,
+      searchingforSenators: stateOfficialIndices,
       divisions: parsedData.divisions,
       offices: parsedData.offices,
       officials: parsedData.officials,
