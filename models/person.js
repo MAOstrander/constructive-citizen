@@ -11,6 +11,6 @@ module.exports = mongoose.model('person',
     city: String,
     state: String,
     zip: Number,
-    canVote: Boolean,
+    canVote: Boolean
   })
 );
