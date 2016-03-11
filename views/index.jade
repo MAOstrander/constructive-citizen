@@ -1,10 +1,19 @@
 extends ../templates/basic.jade
 
 block content
-  h1 From denizen to Citizen!
+  section.top-banner
+    //- img.denizen
+    h1 From denizen...
+    h1 ...to Citizen!
+    //- img.citizen
 
-  section
-    h3 Things you need to know about yourself to be a good citizen
+  section.about
+    p This is an information hub to help provide a person with the basics they need to be a politically productive person. Supplying information and resources useful for the politically savvy, those just learning the political process, and all in between.
+
+  section.roadmap
+    h3 Roadmap to success
+    .aboutGov
+      p It best to have an understanding of how the government works prior to attempting to make participate or make changes to it. It's akin to swimming: most people have learned something of the general form, and you can jump in the water without learning, but you'll always be better off with a little instruction.
     ul
       li
         a(href="http://www.canivote.org/" target="_blank") Am I registered to vote?

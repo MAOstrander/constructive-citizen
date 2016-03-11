@@ -1,0 +1,12 @@
+extends ../templates/basic.jade
+
+block content
+  h1 Find your MAYOR?!?!?
+
+  section
+    form(action="/mayorfind" method="post")
+      div
+        label(for="address") Where is your legal residence:
+        input(type="text" name="address" autofocus placeholder="type your address here")
+
+      input(type="submit" value="Look up my info")

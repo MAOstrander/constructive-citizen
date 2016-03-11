@@ -30,6 +30,48 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 
+app.get('/mayorfind', (req, res) => {
+    res.render('findmayor');
+});
+
+app.post('/mayorfind', (req, res) => {
+  console.log("Where is this going?", req.body);
+  let searchTerms = req.body.address;
+  const stateUrl = `https://www.googleapis.com/civicinfo/v2/representatives?address=${searchTerms}&includeOffices=true&key=${API.civicKey}`
+
+  request.get(stateUrl, (err, response, stateData) => {
+    if (err) throw err;
+    var parsedStateData = JSON.parse(stateData);
+
+    var state = parsedStateData.normalizedInput.state;
+    state = state.toLowerCase();
+
+    var countyURL = `http://api.sba.gov/geodata/city_county_links_for_state_of/${state}.json`
+    request.get(countyURL, (err, response, countyData) => {
+    var parsedCountyData = JSON.parse(countyData);
+
+    res.send(parsedCountyData);
+    })
+
+  })
+
+
+
+
+  // const url = `https://www.googleapis.com/civicinfo/v2/representatives/ocd-division%2Fcountry%3Aus%2Fstate%3Atn%2Fcounty%3Adavidson?key=${API.civicKey}`;
+  // // const url = `https://www.googleapis.com/civicinfo/v2/representatives/ocd-division/country:us/state:tn/county:davidson?key=${API.civicKey}`;
+
+  //   console.log("You searched");
+  // request.get(url, (err, response, data) => {
+  //   if (err) throw err;
+
+  //   var parsedData = JSON.parse(data);
+
+
+  // })
+});
+
+
 app.get('/repfind', (req, res) => {
   res.render('find');
 });

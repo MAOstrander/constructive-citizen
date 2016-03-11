@@ -1,17 +1,11 @@
-.spacer {
- min-height: 30px;
-}
-
 nav {
   position: fixed;
   top: 0;
-  width: 100%;
+  right: 0;
 }
 nav li {
-  display: inline-block;
   margin-left: 20px;
   margin-right: 20px;
-  float: right;
 }
 
 footer {
