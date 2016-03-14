@@ -12,38 +12,50 @@ block content
 
   section.roadmap
     h3 Roadmap to success
-    .aboutGov
-      h4 Learn about your government
-      p It best to have an understanding of how the government works prior to attempting to make participate or make changes to it. It's akin to swimming: most people have learned something of the general form, and you can jump in the water without learning, but you'll always be better off with a little instruction.
-    .findReps
-      h4 Find out who represents you!
-      p People's first assumption is that voting is the primary way to influence policy in the political process. However, it is a much easier starting point to begin with opening a dialog with those already in power.
+    .row
+      #aboutImg
+        img(src="images/pencil.png")
+      #aboutGov
+        h4 Learn about your government
+        p It best to have an understanding of how the government works prior to attempting to make participate or make changes to it. It's akin to swimming: most people have learned something of the general form, and you can jump in the water without learning, but you'll always be better off with a little instruction.
+    .row
+      #findRepImg
+        img(src="images/find-rep.gif")
+      #findReps
+        h4 Find out who represents you!
+        p People's first assumption is that voting is the primary way to influence policy in the political process. However, it is a much easier starting point to begin with opening a dialog with those already in power.
     .flexColumns
-      .voteStatus
-        h4 Know your status
-        ul
-          li Am I elligible to vote?
-          li
-            a(href="http://www.canivote.org/" target="_blank") Have I registered to vote?
-          li If registered, where?
-          li If not, how do I register?
-      .voteStatus
-        h4 Actually Voting
-        ul
-          li What are the next elections?
-          li When will they take place?
-          li Where will I be able to vote?
-          li Who can I vote for?
-      .more
-        h4 How else can I be more active?
-        ul
-          li Donate your time or money to an issue or cause
-          li Become more vocal in your community
-          li Listen to the views of others and weigh them against what you've learned
-          li Start a petition
-          li Run a campaign of your own!
-          li Or, you can register/sign up here on this site...
-    .signup
+      .column
+        #voteStatus
+          img(src="images/podium.png")
+          h4 Know your status
+          ul
+            li Am I elligible to vote?
+            li
+              a(href="http://www.canivote.org/" target="_blank") Have I registered to vote?
+            li If registered, where?
+            li If not, how do I register?
+      .column
+        #voteStatus
+          img(src="images/vote.png")
+          h4 Actually Voting
+          ul
+            li What are the next elections?
+            li When will they take place?
+            li Where will I be able to vote?
+            li Who can I vote for?
+      .column
+        #more
+          img(src="images/podium.png")
+          h4 How else can I be more active?
+          ul
+            li Donate your time or money to an issue or cause
+            li Become more vocal in your community
+            li Listen to the views of others and weigh them against what you've learned
+            li Start a petition
+            li Run a campaign of your own!
+            li Or, you can register/sign up here on this site...
+    #signup
       h2 Sign up and Log In
       p By registering and signing in we hope to streamline the process and provide you with a reminder service for elections in your area and keep you in contact with those that matter to you!
       ul

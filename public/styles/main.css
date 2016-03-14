@@ -1,7 +1,14 @@
+.wrapper {
+  width: 80%;
+  background-color: blue;
+}
+
 nav {
+  width: 20%;
   position: fixed;
   top: 0;
   right: 0;
+  background-color: red;
 }
 nav li {
   margin-left: 20px;
@@ -9,7 +16,40 @@ nav li {
 }
 
 footer {
-  width: 100%;
+  width: 20%;
   position: fixed;
   bottom: 0;
+  right: 0;
+}
+
+.roadmap img {
+  width: 150px;
+}
+
+#aboutImg {
+  float: left;
+}
+
+#findRepImg {
+  float: right;
+}
+
+.column {
+  width: 30%;
+  float: left;
+}
+.column:not(:first-child):not(:last-child) {
+  margin-left: 4%;
+  margin-right: 4%;
+}
+
+.row, .flexColumns {
+  min-height: 200px;
+  clear: both;
+  display: block;
+}
+
+#signup {
+  clear: both;
+
 }
