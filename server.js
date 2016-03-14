@@ -92,6 +92,11 @@ app.post('/repfind', (req, res) => {
     state = state.toLowerCase();
     let stateName = parsedData.divisions[`ocd-division/country:us/state:${state}`].name;
 
+    let countyIndex = data.indexOf('/county:');
+    let county = data.substr(countyIndex + 8, 22);
+    county = county.split("\"")[0];
+    let mayorOfficeIndices = parsedData.divisions[`ocd-division/country:us/state:${state}/county:${county}`].officeIndices;
+
     let cdIndex = data.indexOf('/cd:')
     let cd = parseInt( data.substr(cdIndex + 4, 2) );
     let congressOfficeIndex = parsedData.divisions[`ocd-division/country:us/state:${state}/cd:${cd}`].officeIndices[0];
@@ -111,8 +116,14 @@ app.post('/repfind', (req, res) => {
         senatorIndices = parsedData.offices[stateOfficeIndices[i]].officialIndices;
       } else if (parsedData.offices[stateOfficeIndices[i]].name === "Governor") {
         governorIndex = parsedData.offices[stateOfficeIndices[i]].officialIndices;
-      } else if (parsedData.offices[stateOfficeIndices[i]].name === "Mayor") {
-        mayorIndex = parsedData.offices[stateOfficeIndices[i]].officialIndices;
+      }
+    }
+
+
+    for (let i = 0; i < mayorOfficeIndices.length; i++) {
+      if (parsedData.offices[mayorOfficeIndices[i]].name === "Metro Mayor" || parsedData.offices[mayorOfficeIndices[i]].name === "Mayor") {
+        console.log("found a mayor?");
+        mayorIndex = parsedData.offices[mayorOfficeIndices[i]].officialIndices;
       }
     }
 
@@ -125,7 +136,7 @@ app.post('/repfind', (req, res) => {
     const myGovernor = parsedData.officials[governorIndex];
     myGovernor.email = myGovernor.emails ? myGovernor.emails[0] : "Not Found";
 
-    const myMayor = {};
+    let myMayor = {};
     if (mayorIndex) {
       myMayor = parsedData.officials[mayorIndex];
       myMayor.email = myMayor.emails ? myMayor.emails[0] : "Not Found";
@@ -159,6 +170,7 @@ app.post('/repfind', (req, res) => {
         abbr: state,
         name: stateName
       },
+      county: county,
       congressdistrict: cd,
       congressmember: actualMember,
       searchingforSenate: stateOfficeIndices,
