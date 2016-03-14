@@ -1,0 +1,9 @@
+extends ../templates/basic.jade
+
+block content
+  h1 Here's what we found!
+
+  section
+    p=personsReps.county
+    img(src=personsReps.governor.photo)
+    img(src=personsReps.mayor.photo)

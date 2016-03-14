@@ -19,15 +19,21 @@ module.exports.findAll = (req, res) => {
 
     var parsedData = JSON.parse(data);
 
+    // Find the state and state name
     let state = parsedData.normalizedInput.state;
     state = state.toLowerCase();
     let stateName = parsedData.divisions[`ocd-division/country:us/state:${state}`].name;
 
+    // Find the county
     let countyIndex = data.indexOf('/county:');
     let county = data.substr(countyIndex + 8, 22);
     county = county.split("\"")[0];
-    let mayorOfficeIndices = parsedData.divisions[`ocd-division/country:us/state:${state}/county:${county}`].officeIndices;
+    if (county.indexOf("/") > 0) {
+      county = county.substring(0, county.indexOf("/"));
+    }
+    let mayorOfficeIndices = parsedData.divisions[`ocd-division/country:us/state:${state}/county:${county}`].officeIndices; // list of county offices, in hopes of finding the mayor
 
+    // Find the Congressional District
     let cdIndex = data.indexOf('/cd:')
     let cd = parseInt( data.substr(cdIndex + 4, 2) );
     let congressOfficeIndex = parsedData.divisions[`ocd-division/country:us/state:${state}/cd:${cd}`].officeIndices[0];
@@ -72,11 +78,12 @@ module.exports.findAll = (req, res) => {
       myMayor = parsedData.officials[mayorIndex];
       myMayor.email = myMayor.emails ? myMayor.emails[0] : "Not Found";
       myMayor.url = myMayor.urls ? myMayor.urls[0] : "Not Found";
+      myMayor.photoUrl = myMayor.photoUrl ? myMayor.photoUrl : "images/profile.png";
     } else {
       myMayor.name = "Not Found";
       myMayor.url = "Not Found";
       myMayor.email = "Not Found";
-      myMayor.photoUrl = "Not Found";
+      myMayor.photoUrl = "images/profile.png";
     }
 
 
@@ -119,7 +126,6 @@ module.exports.findAll = (req, res) => {
 
     // const personsReps = new Myreps({
     const personsReps = {
-      test: displayInfo,
       senator1: {
           name: firstSenator.name,
           website: firstSenator.urls[0],
@@ -164,10 +170,12 @@ module.exports.findAll = (req, res) => {
           website: myMayor.url,
           email: myMayor.email,
           photo: myMayor.photoUrl
-      }
+      },
+      county: county
     };
 
 
-    res.send(personsReps);
+    console.log(">>>>>>>", personsReps);
+    res.render("displayrep", {personsReps: personsReps});
   });
 };
