@@ -1,12 +1,15 @@
 extends ../templates/basic.jade
 
 block content
-  h1 Find who represents you in the government
+  h1 Find your representatives in the government
 
-  section
+  section.row.blue
     form(action="/findrep" method="post")
       div
         label(for="address") Where is your legal residence:
         input(type="text" name="address" autofocus placeholder="type your address here")
 
       input(type="submit" value="Look up my info")
+
+  if personsReps
+    include ./includes/displayrep.jade

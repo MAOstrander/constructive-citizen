@@ -3,22 +3,26 @@ html
   head
     block title
       title Constructive Citizens
+      link(rel="stylesheet", href="/bower_components/bootstrap/dist/css/bootstrap.min.css")
+      link(rel="stylesheet", href="./bower_components/font-awesome/css/font-awesome.min.css")
       link(rel="stylesheet", href="/styles/main.css")
   body
-    nav
-      //- img.brand
-      ul
-        li Navigation
-        li <a href="/">Home</a>
-        li <a href="/register">Log In</a>
-        li <a href="/">About the Gov.</a>
-        li <a href="/findrep">Find your Representatives</a>
-        li <a href="/">Can I vote?</a>
-        li <a href="/">Election Info</a>
-        li <a href="/">Make a Change!</a>
-    .wrapper
-      block content
+    .container-fluid
+      .row
+        .col-sm-10.col-md-9
+          block content
+        nav#side-nav.col-sm-2.col-md-3
+          //- img.brand
+          ul
+            li Navigation
+            li <a href="/">Home</a>
+            li <a href="/register">Log In</a>
+            li <a href="/">About the Gov.</a>
+            li <a href="/findrep">Find your Representatives</a>
+            li <a href="/">Can I vote?</a>
+            li <a href="/">Election Info</a>
+            li <a href="/">Make a Change!</a>
 
-  footer
+  footer.row
     block footer
-      p Mathew Ostrander, 2016
+      p.col-sm-2.col-sm-offset-10 Mathew Ostrander, 2016

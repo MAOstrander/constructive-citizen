@@ -1,79 +1,41 @@
-.wrapper {
-  width: 80%;
-  background-color: blue;
-}
-
-nav {
-  width: 20%;
+nav#side-nav {
   position: fixed;
-  top: 0;
-  right: 0;
   background-color: red;
-}
-nav li {
-  margin-left: 20px;
-  margin-right: 20px;
-}
-
-footer {
-  width: 20%;
-  position: fixed;
-  bottom: 0;
   right: 0;
+  top: 0;
+  z-index: 1;
+}
+nav ul {
+  list-style-type: none;
+  padding: 0;
 }
 
+.fa {
+  font-size: 150px;
+}
 .roadmap img {
   width: 150px;
 }
 
-.left {
-  float: left;
+.red {
+  background-color: red;
 }
 
-.right {
-  float: right;
+.blue {
+  background-color: blue;
 }
 
-.column {
-  width: 30%;
-  float: left;
-}
-.column:not(:first-child):not(:last-child) {
-  margin-left: 4%;
-  margin-right: 4%;
-}
-
-.row, .flexColumns {
-  min-height: 200px;
-  clear: both;
-  display: block;
-  text-align: center;
-}
-
-#signup {
-  clear: both;
-}
-
-h2.line {
+/*Creating the signup banner*/
+.line {
   display: inline;
 }
-
 .rowdif {
   text-align: center;
   vertical-align: middle;
   line-height: 150px;
 }
 
-.rowdif img{
-  vertical-align: middle;
-}
-
-
-.col {
-  width: 30%;
-  float: left;
-}
-section.results img {
+section img {
   width: 150px;
 }
 

@@ -183,6 +183,6 @@ module.exports.findAll = (req, res) => {
 
 
     console.log(">>>>>>>", parsedData.normalizedInput);
-    res.render("displayrep", {personsReps: personsReps});
+    res.render("find", {personsReps: personsReps});
   });
 };
