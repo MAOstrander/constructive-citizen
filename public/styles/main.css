@@ -67,3 +67,16 @@ h2.line {
 .rowdif img{
   vertical-align: middle;
 }
+
+
+.col {
+  width: 30%;
+  float: left;
+}
+section.results img {
+  width: 150px;
+}
+
+section.results {
+  clear: both;
+}

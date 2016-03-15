@@ -163,7 +163,7 @@ module.exports.findAll = (req, res) => {
           name: myGovernor.name,
           website: myGovernor.urls[0],
           email: myGovernor.email,
-          photo: myGovernor.photoUrl
+          photo: myGovernor.photoUrl || "images/profile.png"
       },
       mayor: {
           name: myMayor.name,
@@ -171,11 +171,18 @@ module.exports.findAll = (req, res) => {
           email: myMayor.email,
           photo: myMayor.photoUrl
       },
-      county: county
+      address: {
+        street: parsedData.normalizedInput.line1,
+        city: parsedData.normalizedInput.city,
+        zip: parsedData.normalizedInput.zip,
+        state: state,
+        stateName: stateName,
+        county: county
+      }
     };
 
 
-    console.log(">>>>>>>", personsReps);
+    console.log(">>>>>>>", parsedData.normalizedInput);
     res.render("displayrep", {personsReps: personsReps});
   });
 };

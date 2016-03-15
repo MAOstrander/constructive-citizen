@@ -3,7 +3,27 @@ extends ../templates/basic.jade
 block content
   h1 Here's what we found!
 
-  section
-    p=personsReps.county
-    img(src=personsReps.governor.photo)
-    img(src=personsReps.mayor.photo)
+  section#sanitized
+    p Street: #{personsReps.address.street}
+    p City: #{personsReps.address.city}, County: #{personsReps.address.county}
+    p State: #{personsReps.address.state}, ZIP: #{personsReps.address.zip}
+    p Congressional Distrct: #{personsReps.congressDistrict}, State Level Upper House District: #{personsReps.stateSenateDistrict}, State Level Lower House District: #{personsReps.stateHouseDistrict}
+  section#federal.results
+    include ./includes/fedresults.jade
+
+  section#state.results
+    include ./includes/stateresults.jade
+
+  if personsReps.mayor.name != "Not Found"
+    section#local.results
+      h2 Local Level Representative
+      #mayor
+        img(src=personsReps.mayor.photo)
+        h3 Mayor
+        p Name: #{personsReps.mayor.name}
+        if personsReps.mayor.website != "Not Found"
+          p Website: <a href="#{personsReps.mayor.website}">#{personsReps.mayor.name}</a>
+        if personsReps.mayor.email != "Not Found"
+          p Email: #{personsReps.mayor.email}
+  section#closing
+    p Thanks for coming!
