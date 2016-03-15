@@ -1,0 +1,19 @@
+extends ../templates/basic.jade
+
+block content
+  h1 Here's an aggregated list of resources
+
+  section
+    h3 Main Governmental Page:
+      a(href="https://www.usa.gov/" target="_blank") www.usa.gov/
+    h3 Senate Website:
+      a(href="http://www.senate.gov/index.htm" target="_blank")  senate.gov
+    h3 House of Representatives Website:
+      a(href="http://www.house.gov/" target="_blank")  house.gov
+    h3 Presidential Requirements:
+      a(href="https://kids.usa.gov/president/index.shtml" target="_blank")  How to be president
+    h3 Online tutorial videos:
+      a(href="https://www.youtube.com/playlist?list=PL8dPuuaLjXtOfse2ncvffeelTrqvhrz8H" target="_blank")  Crash Course in Government and Politics
+
+    .video-frame
+      iframe(width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=PL8dPuuaLjXtOfse2ncvffeelTrqvhrz8H" frameborder="0" allowfullscreen)

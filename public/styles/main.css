@@ -39,6 +39,17 @@ section img {
   width: 150px;
 }
 
-section.results {
-  clear: both;
+/* responsive embedded youtube video trick*/
+.video-frame {
+  position: relative;
+  padding-bottom: 56.25%;
+  padding-top: 25px;
+  height: 0;
+}
+.video-frame iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
