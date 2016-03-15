@@ -33,4 +33,5 @@ node_modules
 .node_repl_history
 
 public/vendor
+public/bower_components/
 API.js
