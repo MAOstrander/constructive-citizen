@@ -1,0 +1,17 @@
+extends ../templates/basic.jade
+
+block content
+  h1 Things you can do to be politically active
+
+  form(action="/action" method="post")
+    div
+      label(for="address") Where is your legal residence:
+      input(type="text" name="address" autofocus placeholder="type your address here")
+
+    input(type="submit" value="Look up my info")
+
+  section.voter-info
+
+  section.election-info
+
+  section.make-change

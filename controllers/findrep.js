@@ -1,7 +1,7 @@
 'use strict';
 
 const request = require('request');
-const API = require('../API') // Anyone cloning this will need there own API-Key
+const API = require('../API') // Anyone cloning this will need their own API-Key
 const Myreps = require('../models/myreps');
 
 module.exports.initInput = (req, res) => {
