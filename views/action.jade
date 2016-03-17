@@ -11,7 +11,16 @@ block content
     input(type="submit" value="Look up my info")
 
   section.voter-info
+    if actionInfo
+      include ./includes/voter.jade
+    else
+      p type in the search field above to get your voter information
 
   section.election-info
+    if actionInfo
+      include ./includes/elections.jade
+    else
+      p type in the search field above to get your election information
 
   section.make-change
+    p Under construction

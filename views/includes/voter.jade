@@ -1,0 +1,20 @@
+h1 Here's what we found!
+
+section
+  h3 For the address of:
+  p Street: #{actionInfo.userAddress.line1}
+  p City: #{actionInfo.userAddress.city}
+  p State: #{actionInfo.userAddress.state}, ZIP: #{actionInfo.userAddress.zip}
+
+  h3 The following websites may be helpful
+  h5
+    a(href="#{actionInfo.stateElectionInfo}") State Election Information
+  if actionInfo.localElectionInfo != "Not Found"
+    h5
+      a(href="#{actionInfo.localElectionInfo}") Local Election Information
+  h5
+    a(href="#{actionInfo.registrationStatus}") Check if and where you are registered
+  h5
+    a(href="#{actionInfo.registrationToVote}") What you need to do to register to vote
+  h5
+    a(href="#{actionInfo.whereToVote}") Where you need to go to vote

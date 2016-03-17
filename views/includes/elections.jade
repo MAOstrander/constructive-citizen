@@ -1,0 +1,22 @@
+h2 The following elections were found
+
+section
+  h3 Upcoming Elections across the US
+  each thing, index in actionInfo.allElections
+    h4= "Election: " + thing.name
+    h5= "Date: " + thing.electionDay
+
+section
+  h3 General Elections particular to your state
+
+  each title, index in actionInfo.stateElections
+    h4= 'Office: ' + title.office
+    h5= 'Candidates:'
+    ul
+      each val, index in title.candidates
+        li= val.name
+        li= val.party
+        if val.candidateUrl
+          li= val.candidateUrl
+
+
