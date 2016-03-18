@@ -9,8 +9,7 @@ router.get('/', (req, res) => {
 const action = require('./action');
 const findrep = require('./findrep');
 const info = require('./info');
-const register = require('./register');
-
+const register = require('./register'); // Also Login
 
 router.use(action);
 router.use(findrep);

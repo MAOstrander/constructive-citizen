@@ -38,3 +38,7 @@ module.exports.signup = (req, res) => {
   // });
 
 };
+
+module.exports.login = (req, res) => {
+  res.send(`Logged in`);
+};
