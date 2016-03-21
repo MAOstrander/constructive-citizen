@@ -1,10 +1,24 @@
 'use strict';
 
 const request = require('request');
+const express = require('express');
+const passport = require('passport');
+const router = express.Router();
+
+require('./local');
+
 const Person = require('../models/person');
 
 module.exports.form = (req, res) => {
   res.render('register');
+};
+
+module.exports.signout = (req, res) => {
+  req.session.regenerate(function(err) {
+    if (err) throw err;
+
+    res.redirect('/');
+  });
 };
 
 
@@ -20,6 +34,7 @@ module.exports.signup = (req, res) => {
 
   const newPerson = new Person({
     email: req.body.email,
+    password: req.body.password,
     fName: req.body.fName,
     lName: req.body.lName,
     dob: dob,
@@ -30,15 +45,21 @@ module.exports.signup = (req, res) => {
     canVote: canVote
   });
 
-  console.log("newPerson", newPerson);
-  newPerson.save( (err) => {
-    if (err) throw err;
+  Person.findOne({email: req.body.email}, (err, user) => {
+      if (err) throw err;
 
-    res.send(`Welcome ${newPerson.fName}`);
-  });
+      if (user) {
+        console.log("ALREADY EXISTS");
+        res.redirect('/register');
+      } else {
+        Person.create(newPerson, (err) => {
+          if (err) throw err;
 
-};
+          res.send(`Welcome ${newPerson.fName}`);
+        });
+      }
+    });
 
-module.exports.login = (req, res) => {
-  res.send(`Logged in`);
+
+
 };

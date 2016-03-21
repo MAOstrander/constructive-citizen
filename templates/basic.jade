@@ -22,6 +22,8 @@ html
             li <a href="/action">Can I vote?</a>
             li <a href="/action">Election Info</a>
             li <a href="/action#make-change">Make a Change!</a>
+          form(action='/login?_method=delete', method='POST')
+            input(type='submit', value='Logout')
 
   footer.row
     block footer

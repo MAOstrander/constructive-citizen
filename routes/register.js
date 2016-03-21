@@ -7,7 +7,13 @@ const ctrl = require('../controllers/register');
 
 router.get('/register', ctrl.form);
 router.post('/register', ctrl.signup);
-router.post('/login', ctrl.login);
+router.delete('/login', ctrl.signout);
+router.post('/login', passport.authenticate('local',
+    {
+      successRedirect: '/',
+      failureRedirect: '/register'
+    }
+  ));
 
 
 module.exports = router;

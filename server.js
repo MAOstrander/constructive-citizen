@@ -6,6 +6,8 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const request = require('request');
 const session = require('express-session');
+const RedisStore = require('connect-redis')(session);
+const methodOverride = require('method-override');
 const app = express();
 
 const PORT = process.env.PORT || 3000;
@@ -25,6 +27,9 @@ app.set('view engine', 'jade');
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded( {extended: false} ) );
 app.use(bodyParser.json() );
+
+app.use(methodOverride('_method'));
+
 app.use(session({
   secret: SESSION_SECRET,
   store: new RedisStore(),
@@ -32,23 +37,28 @@ app.use(session({
   saveUninitialized: false
 }));
 
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use(routes);
+
 app.use((req, res, next) => {
   req.session.visits = req.session.visits || {};
   req.session.visits[req.url] = req.session.visits[req.url] || 0;
   req.session.visits[req.url]++;
 
   console.log(req.session.visits);
+  console.log(req.session.user);
   next();
 });
 
-app.use(passport.initialize());
-app.use(passport.session());
+
+
 app.use((req, res, next) => {
   res.locals.user = req.user;
   next();
 });
 
-app.use(routes);
 
 
 
