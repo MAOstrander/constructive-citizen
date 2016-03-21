@@ -31,11 +31,11 @@ module.exports.signup = (req, res) => {
   });
 
   console.log("newPerson", newPerson);
-  // newPerson.save( (err) => {
-  //   if (err) throw err;
+  newPerson.save( (err) => {
+    if (err) throw err;
 
     res.send(`Welcome ${newPerson.fName}`);
-  // });
+  });
 
 };
 

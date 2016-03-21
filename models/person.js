@@ -5,33 +5,25 @@ const bcrypt = require('bcrypt');
 
 const BCRYPT_DIFFICULTY = 11;
 
-// module.exports = mongoose.model('person',
-//   mongoose.Schema({
-//     email: String,
-//     fName: String,
-//     lName: String,
-//     dob: Date,
-//     address: String,
-//     city: String,
-//     state: String,
-//     zip: Number,
-//     canVote: Boolean
-//   })
-// );
 
-
-
-
-const UserSchema = mongoose.Schema({
+const PersonSchema = mongoose.Schema({
   email: String,
   password: String
+  fName: String,
+  lName: String,
+  dob: Date,
+  address: String,
+  city: String,
+  state: String,
+  zip: Number,
+  canVote: Boolean
 });
 
-UserSchema.methods.authenticate = function (password, cb) {
+PersonSchema.methods.authenticate = function (password, cb) {
   bcrypt.compare(password, this.password, cb);
 }
 
-UserSchema.pre('save', function (next) {
+PersonSchema.pre('save', function (next) {
   bcrypt.hash(this.password, BCRYPT_DIFFICULTY, (err, hash) => {
     if (err) throw err;
 
@@ -40,4 +32,4 @@ UserSchema.pre('save', function (next) {
   });
 });
 
-module.exports = mongoose.model('Users', UserSchema);
+module.exports = mongoose.model('Person', PersonSchema);

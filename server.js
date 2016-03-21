@@ -27,6 +27,7 @@ app.use(bodyParser.urlencoded( {extended: false} ) );
 app.use(bodyParser.json() );
 app.use(session({
   secret: SESSION_SECRET,
+  store: new RedisStore(),
   resave: false,
   saveUninitialized: false
 }));
