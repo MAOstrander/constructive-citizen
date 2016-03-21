@@ -5,8 +5,6 @@ const bcrypt = require('bcrypt');
 
 const BCRYPT_DIFFICULTY = 11;
 
-console.log('***** In person model *****')
-
 const PersonSchema = mongoose.Schema({
   email: String,
   password: String,

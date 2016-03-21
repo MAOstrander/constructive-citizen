@@ -40,7 +40,11 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(routes);
+app.use((req, res, next) => {
+  res.locals.user = req.user;
+  console.log("locals.user", res.locals.user);
+  next();
+});
 
 app.use((req, res, next) => {
   req.session.visits = req.session.visits || {};
@@ -53,13 +57,7 @@ app.use((req, res, next) => {
 });
 
 
-
-app.use((req, res, next) => {
-  res.locals.user = req.user;
-  next();
-});
-
-
+app.use(routes);
 
 
 mongoose.connect(MONGO_URL);

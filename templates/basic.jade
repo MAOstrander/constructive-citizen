@@ -16,15 +16,19 @@ html
           ul
             li Navigation
             li <a href="/">Home</a>
-            li <a href="/register">Log In</a>
+            if locals.user
+              form#logout-form(action='/login?_method=delete', method='POST')
+                li <a id="log-out">Log Out</a>
+            else
+              li <a href="/register">Log In</a>
             li <a href="/info">About the Gov.</a>
             li <a href="/findrep">Find your Representatives</a>
             li <a href="/action">Can I vote?</a>
             li <a href="/action">Election Info</a>
             li <a href="/action#make-change">Make a Change!</a>
-          form(action='/login?_method=delete', method='POST')
-            input(type='submit', value='Logout')
+            //- input(type='submit', value='Logout')
 
+            script(src='scripts/main.js')
   footer.row
     block footer
       p.col-sm-2.col-sm-offset-10 Mathew Ostrander, 2016
