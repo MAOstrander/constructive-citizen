@@ -12,8 +12,8 @@ block content
       input(type="submit" value="Look up my info")
     h4 Tired of typing in your address all the time? <a href="/register">Register</a> to automate this process!
 
-  if locals.user
-    h3 #{locals.user._id}
-
   if personsReps
     include ./includes/displayrep.jade
+
+  if locals.user
+    h3 #{locals.user._id}

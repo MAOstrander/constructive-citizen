@@ -7,7 +7,22 @@ const Myreps = require('../models/myreps');
 module.exports.initInput = (req, res) => {
   console.log("TESTING", res.locals.user);
 
-  res.render('find');
+  if (res.locals.user) {
+    Myreps.findOne({ userID: res.locals.user._id }, function (err, user) {
+      if (err) throw err;
+
+      console.log("DID WE SEARCH FOR ANYTHING?", user);
+      if (user) {
+
+        res.render('find', {personsReps: user});
+      } else {
+        res.render('find');
+      }
+    });
+  } else {
+    res.render('find');
+  }
+
 };
 
 module.exports.findAll = (req, res) => {
@@ -74,6 +89,7 @@ module.exports.findAll = (req, res) => {
 
     const myGovernor = parsedData.officials[governorIndex];
     myGovernor.email = myGovernor.emails ? myGovernor.emails[0] : "Not Found";
+    myGovernor.photoUrl = myGovernor.photoUrl ? myGovernor.photoUrl : "images/profile.png";
 
     let myMayor = {};
     if (mayorIndex) {
@@ -171,7 +187,7 @@ module.exports.findAll = (req, res) => {
           name: myGovernor.name,
           website: myGovernor.urls[0],
           email: myGovernor.email,
-          photo: myGovernor.photoUrl || "images/profile.png"
+          photo: myGovernor.photoUrl
       },
       mayor: {
           name: myMayor.name,
@@ -190,7 +206,7 @@ module.exports.findAll = (req, res) => {
     }
     );
 
-    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // ~~~~~~~~~~~~~~~~~Refactor to remove this section later~~~~~~~~~~~~~~~~~~~
     const displayPersonsReps = {
       senator1: {
           name: firstSenator.name,
@@ -229,7 +245,7 @@ module.exports.findAll = (req, res) => {
           name: myGovernor.name,
           website: myGovernor.urls[0],
           email: myGovernor.email,
-          photo: myGovernor.photoUrl || "images/profile.png"
+          photo: myGovernor.photoUrl
       },
       mayor: {
           name: myMayor.name,
@@ -251,12 +267,19 @@ module.exports.findAll = (req, res) => {
     console.log(">>>>>>>", parsedData.normalizedInput);
     console.log("??userID", userID);
     if (userID !== "Not logged in") {
-      // Myreps.create(personsReps, (err) => {
-      personsReps.save( (err) => {
+      Myreps.findOne({ userID: userID }, function (err, user) {
         if (err) throw err;
 
-        console.log("SAVED MYREPS!");
-        res.render("find", {personsReps: displayPersonsReps});
+        if (user) {
+          res.render('find', {personsReps: user});
+        } else {
+          personsReps.save( (err) => {
+            if (err) throw err;
+
+            console.log("SAVED MYREPS!");
+            res.render("find", {personsReps: displayPersonsReps});
+          });
+        }
       });
     } else {
       console.log("NOT saved myreps");

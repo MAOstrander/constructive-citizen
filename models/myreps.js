@@ -37,7 +37,7 @@ module.exports = mongoose.model('myreps',
       photo: String
     },
     stateHouseDistrict: Number,
-    governer: {
+    governor: {
       name: String,
       website: String,
       email: String,
@@ -48,6 +48,14 @@ module.exports = mongoose.model('myreps',
       website: String,
       email: String,
       photo: String
+    },
+    address: {
+      street: String,
+      city: String,
+      zip: Number,
+      state: String,
+      stateName: String,
+      county: String
     }
   })
 );
