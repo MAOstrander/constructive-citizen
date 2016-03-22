@@ -26,7 +26,8 @@ html
             li <a href="/action">Can I vote?</a>
             li <a href="/action">Election Info</a>
             li <a href="/action#make-change">Make a Change!</a>
-            //- input(type='submit', value='Logout')
+            if locals.user
+              li <a href="/profile">Your Profile</a>
 
             script(src='scripts/main.js')
   footer.row

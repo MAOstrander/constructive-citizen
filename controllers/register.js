@@ -55,7 +55,7 @@ module.exports.signup = (req, res) => {
         Person.create(newPerson, (err) => {
           if (err) throw err;
 
-          res.send(`Welcome ${newPerson.fName}`);
+          res.render('profile');
         });
       }
     });

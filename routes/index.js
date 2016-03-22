@@ -9,11 +9,13 @@ router.get('/', (req, res) => {
 const action = require('./action');
 const findrep = require('./findrep');
 const info = require('./info');
+const profile = require('./profile');
 const register = require('./register'); // Also Login
 
 router.use(action);
 router.use(findrep);
 router.use(info);
+router.use(profile);
 router.use(register);
 
 
