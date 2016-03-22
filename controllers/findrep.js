@@ -126,9 +126,13 @@ module.exports.findAll = (req, res) => {
     };
 
 
-    const userID = res.locals.user._id || "Not logged in";
-    // const personsReps = new Myreps({
-    const personsReps = {
+    let userID = "Not logged in";
+    if (res.locals.user) {
+      userID = res.locals.user._id;
+    }
+
+    // const personsReps = {
+    const personsReps = new Myreps({
       userID:  userID,
       senator1: {
           name: firstSenator.name,
@@ -184,18 +188,81 @@ module.exports.findAll = (req, res) => {
         county: county
       }
     }
-    // );
+    );
 
-    // if (userID !== "Not logged in") {
-    //   Myreps.create(personsReps, (err) => {
-    //     if (err) throw err;
-
-    //     console.log("SAVED MYREPS!");
-    //   });
-    // }
-
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    const displayPersonsReps = {
+      senator1: {
+          name: firstSenator.name,
+          website: firstSenator.urls[0],
+          email: firstSenator.email,
+          photo: firstSenator.photoUrl
+      },
+      senator2: {
+          name: secondSenator.name,
+          website: secondSenator.urls[0],
+          email: secondSenator.email,
+          photo: secondSenator.photoUrl
+      },
+      congressMember: {
+          name: actualMember.name,
+          website: actualMember.urls[0],
+          email: actualMember.email,
+          photo: actualMember.photoUrl
+      },
+      congressDistrict: cd,
+      stateSenator: {
+        name: stateLevelSenate.name,
+        website: stateLevelSenate.urls[0],
+        email: stateLevelSenate.email,
+        photo: stateLevelSenate.photoUrl
+      },
+      stateSenateDistrict: sldu,
+      stateHouse: {
+        name: stateLevelHouse.name,
+        website: stateLevelHouse.url,
+        email: stateLevelHouse.email,
+        photo: stateLevelHouse.photoUrl
+      },
+      stateHouseDistrict: sldl,
+      governor: {
+          name: myGovernor.name,
+          website: myGovernor.urls[0],
+          email: myGovernor.email,
+          photo: myGovernor.photoUrl || "images/profile.png"
+      },
+      mayor: {
+          name: myMayor.name,
+          website: myMayor.url,
+          email: myMayor.email,
+          photo: myMayor.photoUrl
+      },
+      address: {
+        street: parsedData.normalizedInput.line1,
+        city: parsedData.normalizedInput.city,
+        zip: parsedData.normalizedInput.zip,
+        state: state,
+        stateName: stateName,
+        county: county
+      }
+    }
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     console.log(">>>>>>>", parsedData.normalizedInput);
-    res.render("find", {personsReps: personsReps});
+    console.log("??userID", userID);
+    if (userID !== "Not logged in") {
+      // Myreps.create(personsReps, (err) => {
+      personsReps.save( (err) => {
+        if (err) throw err;
+
+        console.log("SAVED MYREPS!");
+        res.render("find", {personsReps: displayPersonsReps});
+      });
+    } else {
+      console.log("NOT saved myreps");
+      res.render("find", {personsReps: displayPersonsReps});
+    }
+
+
   });
 };
