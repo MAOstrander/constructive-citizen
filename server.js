@@ -52,7 +52,10 @@ app.use((req, res, next) => {
   req.session.visits[req.url]++;
 
   console.log(req.session.visits);
-  console.log(req.session.user);
+  console.log(req.user);
+  if (req.user) {
+    console.log("><><><><><><", req.user._id);
+  }
   next();
 });
 

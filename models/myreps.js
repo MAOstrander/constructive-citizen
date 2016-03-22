@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 
 module.exports = mongoose.model('myreps',
   mongoose.Schema({
+    userID: Object,
     senator1: {
       name: String,
       website: String,

@@ -7,10 +7,13 @@ block content
     form(action="/findrep" method="post")
       div
         label(for="address") Where is your legal residence:
-        input(type="text" name="address" autofocus placeholder="type your address here")
+        input(type="text" name="address" placeholder="type your address here")
 
       input(type="submit" value="Look up my info")
     h4 Tired of typing in your address all the time? <a href="/register">Register</a> to automate this process!
+
+  if locals.user
+    h3 #{locals.user._id}
 
   if personsReps
     include ./includes/displayrep.jade

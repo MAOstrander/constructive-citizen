@@ -5,6 +5,8 @@ const API = require('../API') // Anyone cloning this will need their own API-Key
 const Myreps = require('../models/myreps');
 
 module.exports.initInput = (req, res) => {
+  console.log("TESTING", res.locals.user);
+
   res.render('find');
 };
 
@@ -124,8 +126,10 @@ module.exports.findAll = (req, res) => {
     };
 
 
+    const userID = res.locals.user._id || "Not logged in";
     // const personsReps = new Myreps({
     const personsReps = {
+      userID:  userID,
       senator1: {
           name: firstSenator.name,
           website: firstSenator.urls[0],
@@ -179,7 +183,16 @@ module.exports.findAll = (req, res) => {
         stateName: stateName,
         county: county
       }
-    };
+    }
+    // );
+
+    // if (userID !== "Not logged in") {
+    //   Myreps.create(personsReps, (err) => {
+    //     if (err) throw err;
+
+    //     console.log("SAVED MYREPS!");
+    //   });
+    // }
 
 
     console.log(">>>>>>>", parsedData.normalizedInput);
