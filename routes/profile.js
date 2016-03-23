@@ -2,7 +2,7 @@
 const express = require('express');
 const router = express.Router();
 
-const ctrl = require('../controllers/info');
+const ctrl = require('../controllers/profile');
 
 router.get('/profile', ctrl.dashboard);
 
