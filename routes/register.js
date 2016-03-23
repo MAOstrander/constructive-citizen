@@ -10,7 +10,7 @@ router.post('/register', ctrl.signup);
 router.delete('/login', ctrl.signout);
 router.post('/login', passport.authenticate('local',
     {
-      successRedirect: '/',
+      successRedirect: '/profile',
       failureRedirect: '/register'
     }
   ));

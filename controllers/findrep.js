@@ -3,6 +3,7 @@
 const request = require('request');
 const API = require('../API') // Anyone cloning this will need their own API-Key
 const Myreps = require('../models/myreps');
+const Person = require('../models/person');
 
 function apiSearch(url, req, res) {
 
@@ -195,7 +196,14 @@ module.exports.initInput = (req, res) => {
 
         res.render('find', {personsReps: user});
       } else {
-        res.render('find');
+        Person.findOne({ _id: res.locals.user._id }, function (err, person) {
+          if (err) throw err;
+
+          let searchTerms = `${person.address} ${person.city} ${person.state} ${person.zip}`;
+          console.log("searchTerms", searchTerms);
+          const url = `https://www.googleapis.com/civicinfo/v2/representatives?address=${searchTerms}&includeOffices=true&key=${API.civicKey}`
+          apiSearch(url, req, res);
+        });
       }
     });
   } else {
@@ -208,6 +216,7 @@ module.exports.findFromSearch = (req, res) => {
   console.log("What did I type in?", req.body);
 
   let searchTerms = req.body.address;
+  console.log("searchTerms formatted thus:", searchTerms);
   const url = `https://www.googleapis.com/civicinfo/v2/representatives?address=${searchTerms}&includeOffices=true&key=${API.civicKey}`;
 
   apiSearch(url, req, res);
