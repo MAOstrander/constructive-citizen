@@ -4,6 +4,10 @@ const request = require('request');
 const API = require('../API') // Anyone cloning this will need their own API-Key
 const Myreps = require('../models/myreps');
 
+function findthing (url) {
+  console.log("url", url);
+}
+
 module.exports.initInput = (req, res) => {
   console.log("TESTING", res.locals.user);
 
@@ -121,33 +125,11 @@ module.exports.findAll = (req, res) => {
     stateLevelHouse.url = stateLevelHouse.urls ? stateLevelHouse.urls[0] : "Not Found";
 
 
-    const displayInfo = {
-      state: {
-        abbr: state,
-        name: stateName
-      },
-      county: county,
-      congressdistrict: cd,
-      congressmember: actualMember,
-      searchingforSenate: stateOfficeIndices,
-      searchingforSenators: stateOfficialIndices,
-      senator1: firstSenator,
-      senator2: secondSenator,
-      governor: myGovernor,
-      divisions: parsedData.divisions,
-      offices: parsedData.offices,
-      officials: parsedData.officials,
-      officials: parsedData.officials,
-      everythingelse: parsedData
-    };
-
-
-    let userID = "Not logged in";
+    let userID = "Guest";
     if (res.locals.user) {
       userID = res.locals.user._id;
     }
 
-    // const personsReps = {
     const personsReps = new Myreps({
       userID:  userID,
       senator1: {
@@ -203,70 +185,10 @@ module.exports.findAll = (req, res) => {
         stateName: stateName,
         county: county
       }
-    }
-    );
-
-    // ~~~~~~~~~~~~~~~~~Refactor to remove this section later~~~~~~~~~~~~~~~~~~~
-    const displayPersonsReps = {
-      senator1: {
-          name: firstSenator.name,
-          website: firstSenator.urls[0],
-          email: firstSenator.email,
-          photo: firstSenator.photoUrl
-      },
-      senator2: {
-          name: secondSenator.name,
-          website: secondSenator.urls[0],
-          email: secondSenator.email,
-          photo: secondSenator.photoUrl
-      },
-      congressMember: {
-          name: actualMember.name,
-          website: actualMember.urls[0],
-          email: actualMember.email,
-          photo: actualMember.photoUrl
-      },
-      congressDistrict: cd,
-      stateSenator: {
-        name: stateLevelSenate.name,
-        website: stateLevelSenate.urls[0],
-        email: stateLevelSenate.email,
-        photo: stateLevelSenate.photoUrl
-      },
-      stateSenateDistrict: sldu,
-      stateHouse: {
-        name: stateLevelHouse.name,
-        website: stateLevelHouse.url,
-        email: stateLevelHouse.email,
-        photo: stateLevelHouse.photoUrl
-      },
-      stateHouseDistrict: sldl,
-      governor: {
-          name: myGovernor.name,
-          website: myGovernor.urls[0],
-          email: myGovernor.email,
-          photo: myGovernor.photoUrl
-      },
-      mayor: {
-          name: myMayor.name,
-          website: myMayor.url,
-          email: myMayor.email,
-          photo: myMayor.photoUrl
-      },
-      address: {
-        street: parsedData.normalizedInput.line1,
-        city: parsedData.normalizedInput.city,
-        zip: parsedData.normalizedInput.zip,
-        state: state,
-        stateName: stateName,
-        county: county
-      }
-    }
-    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    });
 
     console.log(">>>>>>>", parsedData.normalizedInput);
-    console.log("??userID", userID);
-    if (userID !== "Not logged in") {
+    if (userID !== "Guest") {
       Myreps.findOne({ userID: userID }, function (err, user) {
         if (err) throw err;
 
@@ -277,13 +199,13 @@ module.exports.findAll = (req, res) => {
             if (err) throw err;
 
             console.log("SAVED MYREPS!");
-            res.render("find", {personsReps: displayPersonsReps});
+            res.render("find", {personsReps: personsReps});
           });
         }
       });
     } else {
-      console.log("NOT saved myreps");
-      res.render("find", {personsReps: displayPersonsReps});
+      console.log("Did NOT save myreps");
+      res.render("find", {personsReps: personsReps});
     }
 
 
