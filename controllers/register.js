@@ -50,12 +50,13 @@ module.exports.signup = (req, res) => {
 
       if (user) {
         console.log("ALREADY EXISTS");
-        res.redirect('/register');
+
+        res.render('register', {message: "Username already exists"});
       } else {
         Person.create(newPerson, (err) => {
           if (err) throw err;
 
-          res.render('profile');
+          res.render('register', {message: "Account created! Now log in to complete process"});
         });
       }
     });

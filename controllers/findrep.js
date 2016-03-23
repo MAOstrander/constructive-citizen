@@ -223,7 +223,41 @@ module.exports.initInput = (req, res) => {
 
 };
 
+
+
 module.exports.findFromSearch = (req, res) => {
+  let searchTerms = req.body.address;
+
+  var reps = new Promise( (resolve, reject) => {
+      apiSearch(searchTerms, req, res, resolve);
+    });
+
+  reps.then( val => {
+      return val;
+    }
+  );
+}
+module.exports.findFromDatabase = (req, res, cbResolve) => {
+  Person.findOne({ _id: res.locals.user._id }, function (err, person) {
+    if (err) throw err;
+
+    let searchTerms = `${person.address} ${person.city} ${person.state} ${person.zip}`;
+    var reps = new Promise( (resolve, reject) => {
+        apiSearch(searchTerms, req, res, resolve);
+      });
+
+    reps.then( val => {
+        if (cbResolve) {
+          cbResolve(val)
+        } else {
+          return val;
+        }
+      }
+    );
+  })
+}
+
+module.exports.findSearchDisplay = (req, res) => {
   console.log("What did I type in?", req.body);
   let searchTerms = req.body.address;
   console.log("searchTerms formatted thus:", searchTerms);
@@ -239,7 +273,7 @@ module.exports.findFromSearch = (req, res) => {
   );
 };
 
-module.exports.findFromDatabase = (req, res) => {
+module.exports.findDatabaseDisplay = (req, res) => {
   Person.findOne({ _id: res.locals.user._id }, function (err, person) {
     if (err) throw err;
 
