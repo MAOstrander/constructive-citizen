@@ -5,7 +5,9 @@ const API = require('../API') // Anyone cloning this will need their own API-Key
 const Myreps = require('../models/myreps');
 const Person = require('../models/person');
 
-function apiSearch(url, req, res) {
+function apiSearch(searchTerms, req, res, resolve) {
+
+  const url = `https://www.googleapis.com/civicinfo/v2/representatives?address=${searchTerms}&includeOffices=true&key=${API.civicKey}`;
 
     request.get(url, (err, response, data) => {
     if (err) throw err;
@@ -159,25 +161,25 @@ function apiSearch(url, req, res) {
       }
     });
 
-    console.log(">>>>>>>", parsedData.normalizedInput);
     if (userID !== "Guest") {
       Myreps.findOne({ userID: userID }, function (err, user) {
         if (err) throw err;
 
         if (user) {
-          res.render('find', {personsReps: user});
+          console.log("You already have MYREPS!");
+          resolve(personsReps);
         } else {
           personsReps.save( (err) => {
             if (err) throw err;
 
             console.log("SAVED MYREPS!");
-            res.render("find", {personsReps: personsReps});
+            resolve(personsReps);
           });
         }
       });
     } else {
       console.log("Did NOT save myreps");
-      res.render("find", {personsReps: personsReps});
+      resolve(personsReps);;
     }
 
 
@@ -193,7 +195,7 @@ module.exports.initInput = (req, res) => {
 
       console.log("DID WE SEARCH FOR ANYTHING?", user);
       if (user) {
-
+        console.log("Displaying stored data");
         res.render('find', {personsReps: user});
       } else {
         Person.findOne({ _id: res.locals.user._id }, function (err, person) {
@@ -201,8 +203,17 @@ module.exports.initInput = (req, res) => {
 
           let searchTerms = `${person.address} ${person.city} ${person.state} ${person.zip}`;
           console.log("searchTerms", searchTerms);
-          const url = `https://www.googleapis.com/civicinfo/v2/representatives?address=${searchTerms}&includeOffices=true&key=${API.civicKey}`
-          apiSearch(url, req, res);
+
+          var reps = new Promise( (resolve, reject) => {
+              apiSearch(searchTerms, req, res, resolve);
+            });
+
+          reps.then( val => {
+              console.log("results from apiSearch:", val);
+              res.render('find', {personsReps: val});
+            }
+          );
+
         });
       }
     });
@@ -214,18 +225,35 @@ module.exports.initInput = (req, res) => {
 
 module.exports.findFromSearch = (req, res) => {
   console.log("What did I type in?", req.body);
-
   let searchTerms = req.body.address;
   console.log("searchTerms formatted thus:", searchTerms);
-  const url = `https://www.googleapis.com/civicinfo/v2/representatives?address=${searchTerms}&includeOffices=true&key=${API.civicKey}`;
 
-  apiSearch(url, req, res);
+  var reps = new Promise( (resolve, reject) => {
+      apiSearch(searchTerms, req, res, resolve);
+    });
+
+  reps.then( val => {
+      console.log("results from apiSearch:", val);
+      res.render('find', {personsReps: val});
+    }
+  );
 };
 
 module.exports.findFromDatabase = (req, res) => {
+  Person.findOne({ _id: res.locals.user._id }, function (err, person) {
+    if (err) throw err;
 
-  let searchTerms = "database call";
-  const url = `https://www.googleapis.com/civicinfo/v2/representatives?address=${searchTerms}&includeOffices=true&key=${API.civicKey}`;
+    let searchTerms = `${person.address} ${person.city} ${person.state} ${person.zip}`;
+    console.log("searchTerms", searchTerms);
 
-  apiSearch(url, req, res);
+    var reps = new Promise( (resolve, reject) => {
+        apiSearch(searchTerms, req, res, resolve);
+      });
+
+    reps.then( val => {
+        console.log("results from apiSearch:", val);
+        res.render('find', {personsReps: val});
+      }
+    );
+  })
 };
