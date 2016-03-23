@@ -6,7 +6,7 @@ const ctrl = require('../controllers/findrep');
 
 router.get('/findrep', ctrl.initInput);
 
-router.post('/findrep', ctrl.findAll);
+router.post('/findrep', ctrl.findFromSearch);
 
 
 module.exports = router;

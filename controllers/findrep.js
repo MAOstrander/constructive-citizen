@@ -4,38 +4,9 @@ const request = require('request');
 const API = require('../API') // Anyone cloning this will need their own API-Key
 const Myreps = require('../models/myreps');
 
-function findthing (url) {
-  console.log("url", url);
-}
+function apiSearch(url, req, res) {
 
-module.exports.initInput = (req, res) => {
-  console.log("TESTING", res.locals.user);
-
-  if (res.locals.user) {
-    Myreps.findOne({ userID: res.locals.user._id }, function (err, user) {
-      if (err) throw err;
-
-      console.log("DID WE SEARCH FOR ANYTHING?", user);
-      if (user) {
-
-        res.render('find', {personsReps: user});
-      } else {
-        res.render('find');
-      }
-    });
-  } else {
-    res.render('find');
-  }
-
-};
-
-module.exports.findAll = (req, res) => {
-  console.log("What did I type in?", req.body);
-
-  let searchTerms = req.body.address;
-  const url = `https://www.googleapis.com/civicinfo/v2/representatives?address=${searchTerms}&includeOffices=true&key=${API.civicKey}`;
-
-  request.get(url, (err, response, data) => {
+    request.get(url, (err, response, data) => {
     if (err) throw err;
 
     var parsedData = JSON.parse(data);
@@ -210,4 +181,42 @@ module.exports.findAll = (req, res) => {
 
 
   });
+}
+
+module.exports.initInput = (req, res) => {
+  console.log("TESTING", res.locals.user);
+
+  if (res.locals.user) {
+    Myreps.findOne({ userID: res.locals.user._id }, function (err, user) {
+      if (err) throw err;
+
+      console.log("DID WE SEARCH FOR ANYTHING?", user);
+      if (user) {
+
+        res.render('find', {personsReps: user});
+      } else {
+        res.render('find');
+      }
+    });
+  } else {
+    res.render('find');
+  }
+
+};
+
+module.exports.findFromSearch = (req, res) => {
+  console.log("What did I type in?", req.body);
+
+  let searchTerms = req.body.address;
+  const url = `https://www.googleapis.com/civicinfo/v2/representatives?address=${searchTerms}&includeOffices=true&key=${API.civicKey}`;
+
+  apiSearch(url, req, res);
+};
+
+module.exports.findFromDatabase = (req, res) => {
+
+  let searchTerms = "database call";
+  const url = `https://www.googleapis.com/civicinfo/v2/representatives?address=${searchTerms}&includeOffices=true&key=${API.civicKey}`;
+
+  apiSearch(url, req, res);
 };
