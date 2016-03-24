@@ -10,9 +10,9 @@ module.exports.dashboard = (req, res) => {
 
   dashReps.then( dashRepsResponse => {
       console.log("YAY", dashRepsResponse);
+      res.render('profile', {personsReps: dashRepsResponse});
+
     }
   );
 
-
-  res.render('profile');
 };
