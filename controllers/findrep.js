@@ -237,6 +237,7 @@ module.exports.findFromSearch = (req, res) => {
     }
   );
 }
+
 module.exports.findFromDatabase = (req, res, cbResolve) => {
   Person.findOne({ _id: res.locals.user._id }, function (err, person) {
     if (err) throw err;

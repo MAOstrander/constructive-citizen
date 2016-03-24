@@ -6,8 +6,50 @@ const Person = require('../models/person');
 const Vote = require('../models/vote');
 
 module.exports.display = (req, res) => {
-  res.render('action');
+
+  if (res.locals.user) {
+    Vote.findOne({ userID: res.locals.user._id }, function (err, voter) {
+      if (err) throw err;
+
+      if (voter) {
+        console.log("Displaying stored data");
+        const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;
+        const diff = new Date() - voter._id.getTimestamp() - ONE_DAY_IN_MS;
+        const lessThanDayAgo = diff < 0;
+
+        if (lessThanDayAgo) {
+          res.render('action', {actionInfo: voter});
+        } else {
+          console.log("WHATNOW?");
+        }
+      }
+      // else {
+      //   Person.findOne({ _id: res.locals.user._id }, function (err, person) {
+      //     if (err) throw err;
+
+      //     let searchTerms = `${person.address} ${person.city} ${person.state} ${person.zip}`;
+      //     console.log("searchTerms", searchTerms);
+
+      //     var reps = new Promise( (resolve, reject) => {
+      //         apiSearch(searchTerms, req, res, resolve);
+      //       });
+
+      //     reps.then( val => {
+      //         console.log("results from apiSearch:", val);
+      //         res.render('find', {personsReps: val});
+      //       }
+      //     );
+
+      //   });
+      // }
+    });
+  } else {
+    res.render('action');
+  }
+
 };
+
+
 
 module.exports.getInfo = (req, res) => {
 
@@ -96,13 +138,3 @@ module.exports.getInfo = (req, res) => {
   })
 
 };
-
-
-      // const FIFTEEN_MINUTES_IN_MS = 15 * 60 * 1000;
-      // const diff = new Date() - doc._id.getTimestamp() - FIFTEEN_MINUTES_IN_MS;
-      // const lessThan15MinutesAgo = diff < 0;
-
-      // if (lessThan15MinutesAgo) {
-      //   res.send(doc);
-      //   return;
-      // }
