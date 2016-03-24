@@ -1,21 +1,12 @@
-h1 Here's what we found!
-
-section
-  h3 For the address of:
-  p Street: #{actionInfo.address.street}
-  p City: #{actionInfo.address.city}
-  p State: #{actionInfo.address.state}, ZIP: #{actionInfo.address.zip}
-  p UserID: #{actionInfo.userID}
-
-  h3 The following websites may be helpful
+h3 The following websites may be helpful
+h5
+  a(href="#{actionInfo.stateElectionInfo}") State Election Information
+if actionInfo.localElectionInfo != "Not Found"
   h5
-    a(href="#{actionInfo.stateElectionInfo}") State Election Information
-  if actionInfo.localElectionInfo != "Not Found"
-    h5
-      a(href="#{actionInfo.localElectionInfo}") Local Election Information
-  h5
-    a(href="#{actionInfo.registrationStatus}") Check if and where you are registered
-  h5
-    a(href="#{actionInfo.registrationToVote}") What you need to do to register to vote
-  h5
-    a(href="#{actionInfo.whereToVote}") Where you need to go to vote
+    a(href="#{actionInfo.localElectionInfo}") Local Election Information
+h5
+  a(href="#{actionInfo.registrationStatus}") Check if and where you are registered
+h5
+  a(href="#{actionInfo.registrationToVote}") What you need to do to register to vote
+h5
+  a(href="#{actionInfo.whereToVote}") Where you need to go to vote

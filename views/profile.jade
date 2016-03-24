@@ -8,11 +8,26 @@ block content
     section.col-md-6.blue
       h2 User Info
       h3 Name: #{locals.user.fName} #{locals.user.lName}
-      h3 Date of Birth: #{locals.user.dob}
       h3 Address:
       h4 Street: #{locals.user.address}
       h4 City: #{locals.user.city}  State: #{locals.user.state}  Zipcode: #{locals.user.zip}
-      p Are you a citizen and over 18? #{locals.user.canVote}
+      h3 Voter Status
+      h5 Date of Birth: #{locals.user.dob}
+      h5 Are you a citizen and over 18? #{locals.user.canVote}
+
+      button.btn.btn-danger(type="button", data-toggle="modal", data-target="#myModal") Edit Address or Citizenship?
+
+      #myModal.modal.fade(tabindex="-1", role="dialog", aria-labelledby="myModalLabel")
+        .modal-dialog(role="document")
+          .modal-content
+            .modal-header
+              button.close(type="button", data-dismiss="modal", aria-label="Close") <span aria-hidden="true">&times;</span>
+              h4#myModalLabel.modal-title Has anything changed?
+            .modal-body
+              form(method="POST", action='/edit-address?_method=PUT')
+                include ./includes/user-address-form.jade
+                button.btn.btn-default(type="button", data-dismiss="modal") Close
+                button#edit-address.btn.btn-primary Save changes
 
     section.col-md-6.red
       //- Helpful websites particular to the user

@@ -1,4 +1,3 @@
-console.log("HEYO, SCRIPT IS GO!");
 var form = document.getElementById("logout-form");
 
 if (form) {
@@ -6,3 +5,22 @@ if (form) {
     form.submit();
   });
 }
+
+
+var modal = document.getElementById("myModal");
+
+if (modal) {
+  document.getElementById("edit-address").addEventListener("click", function () {
+
+    // $.ajax({
+    //    url: '/edit-address',
+    //    type: 'PUT',
+    //    data: 'whattosend'
+    // }).done(function( data ) {
+    //   console.log(data);
+    //   location.reload();
+    // });
+  });
+}
+
+

@@ -14,7 +14,7 @@ const PersonSchema = mongoose.Schema({
   address: String,
   city: String,
   state: String,
-  zip: Number,
+  zip: String,
   canVote: Boolean
 });
 
