@@ -205,14 +205,13 @@ module.exports.initInput = (req, res) => {
           console.log("searchTerms", searchTerms);
 
           var reps = new Promise( (resolve, reject) => {
-              apiSearch(searchTerms, req, res, resolve);
-            });
+            apiSearch(searchTerms, req, res, resolve);
+          });
 
           reps.then( val => {
-              console.log("results from apiSearch:", val);
-              res.render('find', {personsReps: val});
-            }
-          );
+            console.log("results from apiSearch:", val);
+            res.render('find', {personsReps: val});
+          });
 
         });
       }
@@ -229,13 +228,12 @@ module.exports.findFromSearch = (req, res) => {
   let searchTerms = req.body.address;
 
   var reps = new Promise( (resolve, reject) => {
-      apiSearch(searchTerms, req, res, resolve);
-    });
+    apiSearch(searchTerms, req, res, resolve);
+  });
 
   reps.then( val => {
-      return val;
-    }
-  );
+    return val;
+  });
 }
 
 module.exports.findFromDatabase = (req, res, cbResolve) => {
@@ -244,17 +242,16 @@ module.exports.findFromDatabase = (req, res, cbResolve) => {
 
     let searchTerms = `${person.address} ${person.city} ${person.state} ${person.zip}`;
     var reps = new Promise( (resolve, reject) => {
-        apiSearch(searchTerms, req, res, resolve);
-      });
+      apiSearch(searchTerms, req, res, resolve);
+    });
 
     reps.then( val => {
-        if (cbResolve) {
-          cbResolve(val)
-        } else {
-          return val;
-        }
+      if (cbResolve) {
+        cbResolve(val)
+      } else {
+        return val;
       }
-    );
+    });
   })
 }
 

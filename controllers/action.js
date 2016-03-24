@@ -147,3 +147,22 @@ module.exports.getInfo = (req, res) => {
   });
 
 };
+
+module.exports.voteInfoFromDatabase = (req, res, cbResolve) => {
+
+  let searchTerms = `${res.locals.user.address} ${res.locals.user.city} ${res.locals.user.state} ${res.locals.user.zip}`;
+
+  var newVote = new Promise( (resolve, reject) => {
+    voteApiSearch(searchTerms, req, res, resolve);
+  });
+
+  newVote.then( val => {
+    console.log("results obtained from the voteApiSearch:");
+    if (cbResolve) {
+      cbResolve(val)
+    } else {
+      return val;
+    }
+  });
+
+};

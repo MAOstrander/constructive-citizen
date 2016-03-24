@@ -16,7 +16,7 @@ block content
 
     section.col-md-6.red
       //- Helpful websites particular to the user
-      //- include ./includes/voter.jade
+      include ./includes/voter.jade
   .row
     section.red
       //- Calendar of important or upcoming deadlines
@@ -26,6 +26,7 @@ block content
     //- Election Info for this week
   section
     //- General Elections particular to user's state
+    include ./includes/elections.jade
   section
     //- Find rep results
     if personsReps
