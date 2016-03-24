@@ -1,0 +1,17 @@
+h2 Save the date!
+h4 Important reminders
+
+
+button.btn.btn-default(type="button", data-toggle="modal", data-target="#reminderModal") Create Reminder
+
+#reminderModal.modal.fade(tabindex="-1", role="dialog", aria-labelledby="reminderLabel")
+  .modal-dialog(role="document")
+    .modal-content
+      .modal-header
+        button.close(type="button", data-dismiss="modal", aria-label="Close") <span aria-hidden="true">&times;</span>
+        h4#reminderLabel.modal-title What would you like to save?
+      .modal-body
+        form(method="POST", action='/submit-reminder?_method=PUT')
+          p WARGABLE?
+          button.btn.btn-default(type="button", data-dismiss="modal") Close
+          button#submit-reminder.btn.btn-primary Save date
