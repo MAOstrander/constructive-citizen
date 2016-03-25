@@ -1,6 +1,10 @@
 {
   "name": "constructive-citizen",
   "version": "1.0.0",
+  "engines": {
+    "node": "5.5.0",
+    "npm": "3.5.3"
+  },
   "description": "",
   "main": "server.js",
   "scripts": {
