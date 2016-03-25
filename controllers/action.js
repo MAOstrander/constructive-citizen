@@ -1,7 +1,7 @@
 'use strict';
 
 const request = require('request');
-const API = require('../API') // Anyone cloning this will need their own API-Key
+const API = process.env.API_KEY || require('../API') // Anyone cloning this will need their own API-Key
 const Person = require('../models/person');
 const Vote = require('../models/vote');
 
