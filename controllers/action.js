@@ -2,10 +2,10 @@
 
 const request = require('request');
 if (process.env.API_KEY) {
-  let API = {};
+  var API = {};
   API.civicKey = process.env.API_KEY;
 } else {
-  const API = require('../API') // Anyone cloning this will need their own API-Key
+  var API = require('../API') // Anyone cloning this will need their own API-Key
 }
 const Person = require('../models/person');
 const Vote = require('../models/vote');
