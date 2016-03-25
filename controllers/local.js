@@ -10,12 +10,10 @@ const INCORRECT_USERNAME_MSG = 'Email or password incorrect';
 const INCORRECT_PASSWORD_MSG = 'Email or password incorrect';
 
 passport.serializeUser(function(user, done) {
-  console.log('serializeUser')
   done(null, user._id);
 });
 
 passport.deserializeUser(function(id, done) {
-  console.log('deserializeUser')
   Person.findById(id, done);
 });
 
@@ -28,8 +26,6 @@ passport.use(new LocalStrategy({
 
     Person.findOne({ email: email }, function (err, user) {
       if (err) throw err;
-
-      console.log("user >>>>", user);
 
       if (user) {
         user.authenticate(password, (err, valid) => {

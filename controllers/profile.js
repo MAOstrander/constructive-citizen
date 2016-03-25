@@ -19,11 +19,11 @@ module.exports.dashboard = (req, res) => {
         });
 
         dashVote.then( dashVoteResponse => {
-          console.log("How close do we get?");
           Reminder.find({userID: res.locals.user._id}, (err, reminderList) => {
             if (err) throw err;
 
             res.render('profile', {personsReps: dashRepsResponse, actionInfo: dashVoteResponse, reminders: reminderList});
+            console.log("Fully Loaded Profile");
           })
         });
       });
@@ -50,9 +50,8 @@ module.exports.changeAddress = (req, res) => {
 
   Person.update(conditions, update, options, (err, say) => {
     if (err) throw err;
-    console.log('saved yes!')
-    res.redirect('/profile');
 
+    res.redirect('/profile');
   });
 };
 
@@ -68,7 +67,6 @@ module.exports.addReminder = (req, res) => {
   newEvent.save( (err) => {
     if (err) throw err;
 
-    console.log("WE SAVED AN EVENT?!!");
     res.redirect('/profile');
   });
 }

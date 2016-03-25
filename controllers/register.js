@@ -23,7 +23,6 @@ module.exports.signout = (req, res) => {
 
 
 module.exports.signup = (req, res) => {
-  console.log("What was typed in? >>>>", req.body);
   const dob = new Date(req.body.byear, req.body.bmonth, req.body.bday);
   const now = new Date();
   // If the person is not a citizen or less than 18 they can't currently vote
@@ -46,20 +45,18 @@ module.exports.signup = (req, res) => {
   });
 
   Person.findOne({email: req.body.email}, (err, user) => {
-      if (err) throw err;
+    if (err) throw err;
 
-      if (user) {
-        console.log("ALREADY EXISTS");
+    if (user) {
+      res.render('register', {message: "Username already exists"});
+    } else {
+      Person.create(newPerson, (err) => {
+        if (err) throw err;
 
-        res.render('register', {message: "Username already exists"});
-      } else {
-        Person.create(newPerson, (err) => {
-          if (err) throw err;
-
-          res.render('register', {message: "Account created! Now log in to complete process"});
-        });
-      }
-    });
+        res.render('register', {message: "Account created! Now log in to complete process"});
+      });
+    }
+  });
 
 
 

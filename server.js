@@ -42,7 +42,6 @@ app.use(passport.session());
 
 app.use((req, res, next) => {
   res.locals.user = req.user;
-  console.log("locals.user", res.locals.user);
   next();
 });
 
@@ -51,11 +50,6 @@ app.use((req, res, next) => {
   req.session.visits[req.url] = req.session.visits[req.url] || 0;
   req.session.visits[req.url]++;
 
-  console.log(req.session.visits);
-  console.log(req.user);
-  if (req.user) {
-    console.log("><><><><><><", req.user._id);
-  }
   next();
 });
 

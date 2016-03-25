@@ -67,19 +67,16 @@ function voteApiSearch(searchTerms, req, res, resolve) {
           if (err) throw err;
 
           if (voter) {
-            console.log("You already have Info!");
             resolve(everything);
           } else {
             everything.save( (err) => {
               if (err) throw err;
 
-              console.log("SAVED ELECTIONS!");
               resolve(everything);
             });
           }
         });
       } else {
-        console.log("Did NOT save elections", elections);
         resolve(everything);;
       }
 
@@ -94,21 +91,18 @@ module.exports.display = (req, res) => {
       if (err) throw err;
 
       let searchTerms = `${person.address} ${person.city} ${person.state} ${person.zip}`;
-      console.log("searchTerms", searchTerms);
 
       Vote.findOne({ userID: res.locals.user._id }, function (err, voter) {
         if (err) throw err;
 
         let lessThanDayAgo = false;
         if (voter) {
-          console.log("Displaying stored data");
           const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;
           const diff = new Date() - voter._id.getTimestamp() - ONE_DAY_IN_MS;
           lessThanDayAgo = diff < 0;
         }
 
         if (lessThanDayAgo && voter) {
-          console.log("recent times");
             res.render('action', {actionInfo: voter});
         } else {
 
@@ -117,7 +111,6 @@ module.exports.display = (req, res) => {
           });
 
           newVote.then( val => {
-            console.log("results from voteApiSearch:", val);
             res.render('action', {actionInfo: val});
           });
         }
@@ -142,7 +135,6 @@ module.exports.getInfo = (req, res) => {
   });
 
   newVote.then( val => {
-    console.log("results from voteApiSearch:", val);
     res.render('action', {actionInfo: val});
   });
 
@@ -157,7 +149,6 @@ module.exports.voteInfoFromDatabase = (req, res, cbResolve) => {
   });
 
   newVote.then( val => {
-    console.log("results obtained from the voteApiSearch:");
     if (cbResolve) {
       cbResolve(val)
     } else {

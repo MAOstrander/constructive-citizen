@@ -166,19 +166,15 @@ function apiSearch(searchTerms, req, res, resolve) {
         if (err) throw err;
 
         if (user) {
-          console.log("You already have MYREPS!");
           resolve(personsReps);
         } else {
           personsReps.save( (err) => {
             if (err) throw err;
-
-            console.log("SAVED MYREPS!");
             resolve(personsReps);
           });
         }
       });
     } else {
-      console.log("Did NOT save myreps");
       resolve(personsReps);;
     }
 
@@ -187,29 +183,24 @@ function apiSearch(searchTerms, req, res, resolve) {
 }
 
 module.exports.initInput = (req, res) => {
-  console.log("TESTING", res.locals.user);
 
   if (res.locals.user) {
     Myreps.findOne({ userID: res.locals.user._id }, function (err, user) {
       if (err) throw err;
 
-      console.log("DID WE SEARCH FOR ANYTHING?", user);
       if (user) {
-        console.log("Displaying stored data");
         res.render('find', {personsReps: user});
       } else {
         Person.findOne({ _id: res.locals.user._id }, function (err, person) {
           if (err) throw err;
 
           let searchTerms = `${person.address} ${person.city} ${person.state} ${person.zip}`;
-          console.log("searchTerms", searchTerms);
 
           var reps = new Promise( (resolve, reject) => {
             apiSearch(searchTerms, req, res, resolve);
           });
 
           reps.then( val => {
-            console.log("results from apiSearch:", val);
             res.render('find', {personsReps: val});
           });
 
@@ -256,19 +247,15 @@ module.exports.findFromDatabase = (req, res, cbResolve) => {
 }
 
 module.exports.findSearchDisplay = (req, res) => {
-  console.log("What did I type in?", req.body);
   let searchTerms = req.body.address;
-  console.log("searchTerms formatted thus:", searchTerms);
 
   var reps = new Promise( (resolve, reject) => {
-      apiSearch(searchTerms, req, res, resolve);
-    });
+    apiSearch(searchTerms, req, res, resolve);
+  });
 
   reps.then( val => {
-      console.log("results from apiSearch:", val);
-      res.render('find', {personsReps: val});
-    }
-  );
+    res.render('find', {personsReps: val});
+  });
 };
 
 module.exports.findDatabaseDisplay = (req, res) => {
@@ -276,16 +263,13 @@ module.exports.findDatabaseDisplay = (req, res) => {
     if (err) throw err;
 
     let searchTerms = `${person.address} ${person.city} ${person.state} ${person.zip}`;
-    console.log("searchTerms", searchTerms);
 
     var reps = new Promise( (resolve, reject) => {
-        apiSearch(searchTerms, req, res, resolve);
-      });
+      apiSearch(searchTerms, req, res, resolve);
+    });
 
     reps.then( val => {
-        console.log("results from apiSearch:", val);
-        res.render('find', {personsReps: val});
-      }
-    );
+      res.render('find', {personsReps: val});
+    });
   })
 };
