@@ -12,6 +12,7 @@ const app = express();
 
 const PORT = process.env.PORT || 3000;
 const SESSION_SECRET = process.env.SESSION_SECRET || 'iamabanana';
+const REDIS_URL = process.env.REDIS_URL || 'redis://localhost:6379';
 const MONGODB_HOST = process.env.MONGODB_HOST || 'localhost';
 const MONGODB_PORT = process.env.MONGODB_PORT || 27017;
 const MONGODB_USER = process.env.MONGODB_USER || '';
@@ -32,7 +33,7 @@ app.use(methodOverride('_method'));
 
 app.use(session({
   secret: SESSION_SECRET,
-  store: new RedisStore(),
+  store: new RedisStore({url: REDIS_URL}),
   resave: false,
   saveUninitialized: false
 }));
