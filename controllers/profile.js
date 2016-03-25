@@ -3,6 +3,7 @@
 const findrep = require('./findrep');
 const action = require('./action');
 const Person = require('../models/person');
+const Reminder = require('../models/reminder');
 
 module.exports.dashboard = (req, res) => {
   if (res.locals.user) {
@@ -19,7 +20,11 @@ module.exports.dashboard = (req, res) => {
 
         dashVote.then( dashVoteResponse => {
           console.log("How close do we get?");
-          res.render('profile', {personsReps: dashRepsResponse, actionInfo: dashVoteResponse});
+          Reminder.find({userID: res.locals.user._id}, (err, reminderList) => {
+            if (err) throw err;
+
+            res.render('profile', {personsReps: dashRepsResponse, actionInfo: dashVoteResponse, reminders: reminderList});
+          })
         });
       });
     } else {res.redirect('/');}
@@ -39,9 +44,6 @@ module.exports.changeAddress = (req, res) => {
     canVote = false;
   }
 
-
-  console.log("WRACK DAT BODY:", req.body);
-
   var conditions = { _id: res.locals.user._id };
   var update = { $set: { address:req.body.street, city: req.body.city, state: req.body.state, zip: req.body.zip, canVote: canVote}};
   var options = { upsert: true };
@@ -53,3 +55,21 @@ module.exports.changeAddress = (req, res) => {
 
   });
 };
+
+module.exports.addReminder = (req, res) => {
+
+  const newEvent = new Reminder({
+    userID: res.locals.user._id,
+    when: req.body.when,
+    what: req.body.what,
+    notes: req.body.notes
+  });
+
+  newEvent.save( (err) => {
+    if (err) throw err;
+
+    console.log("WE SAVED AN EVENT?!!");
+    res.redirect('/profile');
+  });
+}
+
