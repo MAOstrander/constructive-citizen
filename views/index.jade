@@ -1,86 +1,52 @@
 extends ../templates/basic.jade
 
 block content
-  section.row.top-banner
+  section.row#top-banner
     //- img.denizen
-    h1 From denizen...
-    h1.pull-right ...to Citizen!
+    h1.col-xs-offset-2 From Denizen...
+    h1.col-xs-offset-6 ...to Citizen!
+    //- h1.pull-right ...to Citizen!
     //- img.citizen
 
   section.about
-    p This is an information hub to help provide a person with the basics they need to be a politically productive person. Supplying information and resources useful for the politically savvy, those just learning the political process, and all in between.
+    p#tagline Become more informed and active in your government!
 
-  section.roadmap
-    h3 Roadmap to success
+  section.please-login
+    p Being an active citizen can be overwhelming at first!
+    .rowdif
+      a(href="/register")
+        h2.line Sign up
+        img.line(src="images/Star.gif")
+        h2.line Log In
+    p Sign in to go the the Informed Voter Track
+
+  section#voter-track
     .row
-      #aboutImg.col-sm-3.col-xs-4
-        a(href="/info")
-          i.fa.fa-pencil.fa-fw
-      #aboutGov.col-sm-9.col-xs-8
-        h4 Learn about your government
-        p It best to have an understanding of how the government works prior to attempting to make participate or make changes to it. It's akin to swimming: most people have learned something of the general form, and you can jump in the water without learning, but you'll always be better off with a little instruction.
-    .row.red
-      #findRepImg.pull-right.col-sm-3.col-xs-4
-        a(href="/findrep")
-          img(src="images/find-rep.gif")
-      #findReps.col-sm-9.col-xs-8
-        h4 Find out who represents you!
-        p People's first assumption is that voting is the primary way to influence policy in the political process. However, it is a much easier starting point to begin with opening a dialog with those already in power.
-    .row.blue
-      #voteStatus.col-xs-4
-        a(href="/action")
-          img(src="images/profile.png")
-        h4 Know your status
-        h5 To get started with any of these click the image above or read below!
-        p.question Q. Am I eligible to vote?
-        p A. The only consistant requirements are that you be over 18 years and a citizen. Though exceptions can be found on a state by state basis, select your state at <a href="http://www.canivote.org/" target="_blank"> canivote.org</a> or type in your address <a href="/action">here on this site</a>.
-        p.question Q. I meet the requirements for my state, now can I vote?
-        p A. In addition you'll need to register to vote in a particular locality, typically the district of your legal residence. To check where/if you are registered to vote you can select the appropriate state website from <a href="http://www.canivote.org/" target="_blank">canivote.org</a> or <a href="/action">here</a>.
-        p.question Q. I'm not registered, how do I become registered?
-        p A. The process can be done in person at a number of polling locations, armed services recruitement centers, the Department of Motor Vehicles (DMV), and often your local libraries. Alternativlely you can fill out this form and send it in: <a href="http://www.eac.gov/voter_resources/register_to_vote.aspx" target="_blank">National Mail Voter Registration Form</a>.
-        p.question Q. I'm registered, now what?
-        p A. Now you're ready to vote when there's an election in your area!
+      .col-xs-4
+        h1 1
+        p How Government Works
+    .row
+      .col-xs-4.col-xs-offset-4
+        h1 2
+        p Who represents me?
+    .row
+      .col-xs-4.col-xs-offset-8
+        h1 3
+        p Get Involved!
 
-      #voteDetails.col-xs-4
-        a(href="/action")
-          img(src="images/vote.png")
-        h4 Actually Voting
-        h5 To get started with any of these click the image above or read below!
-        p.question Q. What are the next elections?
-        p.question Q. When will they take place?
-        p A. You can either type in your address <a href="/action">here on this site</a> to get started, or you can visit <a href="http://elections.mytimetovote.com/dates/default.html" target="_blank"> mytimetovote.com </a> for election and time info
-        p.question Q. Where will I be able to vote?
-        p A. Usually the town or city hall, certain libraries or schools, and occaisionally churches or other public buildings can be used. To find a definite place select your state at this site, <a href="https://triggerthevote.org/find-polling-place/" target="_blank"> State selector</a> or <a href="/action">here on this site</a>.
-        p.question Q. Who can I vote for?
-        p A. By viewing the elections relevant to your particular state <a href="/action">here on this site</a> you can also see the candidates and (if available) that candidates website. Or you can research the candidates by searching for them on <a href="http://votesmart.org/" target="_blank"> votesmart.org</a>
+  section#info-finder
+    h1 Find Your Representatives
+    form(action="/findrep" method="post")
+      label(for="address") Where is your legal residence:
+      input(type="text" name="address" placeholder="Enter your address here")
+      input(type="submit" value="Look up my info")
 
-      #more.col-xs-4
-        a(href="/action#make-change")
-          img(src="images/podium.png")
-        h4 How else can I be more active?
-        p.question Q. Aside from voting or talking to my policitians, how can I help in politics?
-        p A. If there's a particular politician or issue that you support, consider donating your time or money. Volunteering and donating are both ways to support an issue or cause.
-        p.question Q. How can I be more vocal about what I care about?
-        p A. You can engage others in meaningful conversation. Assuming they are willing to listen you can talk to friends and family about the issues that matter to you, you can participate in online discussions, or you can go <a href="https://en.wikipedia.org/wiki/Canvassing" target="_blank">canvassing</a> door to door.
-        p.question Q. I'm not the only one who wants a particular change, how to I unite us?
-        p A. You can try starting a petition at sites like <a href="http://petitions.whitehouse.gov" target="_blank">petitions.whitehouse.gov</a> or <a href="https://www.change.org/start-a-petition" target="_blank">change.org</a>
-        p.question Q. I've got lots of support, and care about this deeply! How to I make sure changes are made?
-        p A. Assuming you are eligible, you can run a campaign of your own! Run for office, join the city council, start a committee, or create a volunteer group dedicated to you issue or cause.
-        p.question Q. Anything else?
-        p A. Don't forget to <a href="/register">register/sign up</a> here on this site!
-
-    #signup
-      .rowdif
-        a(href="/register")
-          h2.line Sign up
-          img.line(src="images/Star.gif")
-          h2.line Log In
-      p By registering and signing in we hope to streamline the process and provide you with a reminder service for elections in your area and keep you in contact with those that matter to you!
-      ul.row
-        .col-xs-5.col-xs-offset-1
-          li Election Emails
-          li Voter Checklist
-        .col-xs-5
-          li Quickview of representatives
-          li Communicate with others in this community
-
+  section#why-involved
+    h1 Why You Should Be Involved!
+    .row
+      .col-xs-4
+        p To make democracy work, we must be a notion of participants, not simply observers. ~Louis L'Amour
+      .col-xs-4
+        p Nobody will ever deprive the American people of the right to vote except the American people themselves and the only way they could do this is by not voting. ~Franklin D. Roosevelt
+      .col-xs-4
+        p Be the change you wish to see in the world. ~Mahatma Ghandi

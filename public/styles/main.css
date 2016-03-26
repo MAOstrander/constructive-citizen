@@ -2,32 +2,19 @@ body {
   padding-top: 70px;
 }
 
-/*nav#side-nav {
-  position: fixed;
-  background-color: red;
-  right: 0;
-  top: 0;
-  z-index: 1;
-}*/
-/*nav ul {
-  list-style-type: none;
-  padding: 0;
-}*/
-
-.fa {
-  font-size: 150px;
-}
-.roadmap img {
-  width: 150px;
+#top-banner h1 {
+  font-family: 'Dancing Script', cursive;
+  font-size: 50px;
 }
 
-/*.red {
-  background-color: red;
+#tagline {
+  font-size: 3rem;
+  text-align: center;
 }
 
-.blue {
-  background-color: blue;
-}*/
+.please-login, #info-finder, #why-involved, footer {
+  text-align: center;
+}
 
 /*Creating the signup banner*/
 .line {
@@ -37,6 +24,24 @@ body {
   text-align: center;
   vertical-align: middle;
   line-height: 150px;
+}
+
+#voter-track {
+  text-align: center;
+  border-top: 3px solid black;
+  border-bottom: 3px solid black;
+}
+
+section#why-involved p {
+  font-family: 'Dancing Script', cursive;
+  font-size: 24px;
+}
+
+.fa {
+  font-size: 150px;
+}
+.roadmap img {
+  width: 150px;
 }
 
 section img {
