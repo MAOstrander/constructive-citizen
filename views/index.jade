@@ -1,52 +1,56 @@
 extends ../templates/basic.jade
 
 block content
-  section.row#top-banner
-    //- img.denizen
-    h1.col-xs-offset-2 From Denizen...
-    h1.col-xs-offset-6 ...to Citizen!
-    //- h1.pull-right ...to Citizen!
-    //- img.citizen
+  .jumbotron
+    section.row#top-banner
+      //- img.denizen
+      h1.col-xs-offset-2 From Denizen...
+      h1.col-xs-offset-6 ...to Citizen!
+      //- h1.pull-right ...to Citizen!
+      //- img.citizen
 
-  section.about
-    p#tagline Become more informed and active in your government!
+    section.about
+      p#tagline Become more informed and active in your government!
 
-  section.please-login
-    p Being an active citizen can be overwhelming at first!
-    .rowdif
-      a(href="/register")
-        h2.line Sign up
-        img.line(src="images/Star.gif")
-        h2.line Log In
-    p Sign in to go the the Informed Voter Track
-
-  section#voter-track
+  .container-fluid
     .row
-      .col-xs-4
-        h1 1
-        p How Government Works
-    .row
-      .col-xs-4.col-xs-offset-4
-        h1 2
-        p Who represents me?
-    .row
-      .col-xs-4.col-xs-offset-8
-        h1 3
-        p Get Involved!
+      .col-sm-10.col-sm-offset-1
+        section.please-login
+          p Being an active citizen can be overwhelming at first!
+          .rowdif
+            a(href="/register")
+              h2.line Sign up
+              img.line(src="images/Star.gif")
+              h2.line Log In
+          p Sign in to go the the Informed Voter Track
 
-  section#info-finder
-    h1 Find Your Representatives
-    form(action="/findrep" method="post")
-      label(for="address") Where is your legal residence:
-      input(type="text" name="address" placeholder="Enter your address here")
-      input(type="submit" value="Look up my info")
+        section#voter-track
+          .row
+            .col-xs-4
+              h1 1
+              p How Government Works
+          .row
+            .col-xs-4.col-xs-offset-4
+              h1 2
+              p Who represents me?
+          .row
+            .col-xs-4.col-xs-offset-8
+              h1 3
+              p Get Involved!
 
-  section#why-involved
-    h1 Why You Should Be Involved!
-    .row
-      .col-xs-4
-        p To make democracy work, we must be a notion of participants, not simply observers. ~Louis L'Amour
-      .col-xs-4
-        p Nobody will ever deprive the American people of the right to vote except the American people themselves and the only way they could do this is by not voting. ~Franklin D. Roosevelt
-      .col-xs-4
-        p Be the change you wish to see in the world. ~Mahatma Ghandi
+        section#info-finder
+          h1 Find Your Representatives
+          form(action="/findrep" method="post")
+            label(for="address") Where is your legal residence:
+            input(type="text" name="address" placeholder="Enter your address here")
+            input(type="submit" value="Look up my info")
+
+        section#why-involved.well
+          h1 Why You Should Be Involved!
+          .row
+            .col-xs-4
+              p To make democracy work, we must be a notion of participants, not simply observers. ~Louis L'Amour
+            .col-xs-4
+              p Nobody will ever deprive the American people of the right to vote except the American people themselves and the only way they could do this is by not voting. ~Franklin D. Roosevelt
+            .col-xs-4
+              p Be the change you wish to see in the world. ~Mahatma Ghandi
