@@ -1,6 +1,6 @@
 nav#side-nav {
   position: fixed;
-  background-color: red;
+  /*background-color: red;*/
   right: 0;
   top: 0;
   z-index: 1;
@@ -17,13 +17,13 @@ nav ul {
   width: 150px;
 }
 
-.red {
+/*.red {
   background-color: red;
 }
 
 .blue {
   background-color: blue;
-}
+}*/
 
 /*Creating the signup banner*/
 .line {
