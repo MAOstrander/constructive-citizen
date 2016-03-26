@@ -1,14 +1,18 @@
-nav#side-nav {
+body {
+  padding-top: 70px;
+}
+
+/*nav#side-nav {
   position: fixed;
-  /*background-color: red;*/
+  background-color: red;
   right: 0;
   top: 0;
   z-index: 1;
-}
-nav ul {
+}*/
+/*nav ul {
   list-style-type: none;
   padding: 0;
-}
+}*/
 
 .fa {
   font-size: 150px;

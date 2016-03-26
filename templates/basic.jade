@@ -7,31 +7,17 @@ html
       link(rel="stylesheet", href="./bower_components/font-awesome/css/font-awesome.min.css")
       link(rel="stylesheet", href="/styles/main.css")
   body
+    block navigation
+      include ../views/includes/nav-default.jade
+
     .container-fluid
       .row
-        .col-sm-10.col-md-9
+        .col-sm-10.col-sm-offset-1
           block content
-        nav#side-nav.col-sm-2.col-md-3
-          //- img.brand
-          ul
-            li Navigation
-            li <a href="/">Home</a>
-            if locals.user
-              form#logout-form(action='/login?_method=delete', method='POST')
-                li <a id="log-out">Log Out</a>
-            else
-              li <a href="/register">Log In</a>
-            li <a href="/info">About the Gov.</a>
-            li <a href="/findrep">Find your Representatives</a>
-            li <a href="/action">Can I vote?</a>
-            li <a href="/action">Election Info</a>
-            li <a href="/action#make-change">Make a Change!</a>
-            if locals.user
-              li <a href="/profile">Your Profile</a>
 
-            script(src='/bower_components/jquery/dist/jquery.min.js')
-            script(src='/bower_components/bootstrap/dist/js/bootstrap.min.js')
-            script(src='scripts/main.js')
+    script(src='/bower_components/jquery/dist/jquery.min.js')
+    script(src='/bower_components/bootstrap/dist/js/bootstrap.min.js')
+    script(src='scripts/main.js')
   footer.row
     block footer
       p.col-sm-2.col-sm-offset-10 Mathew Ostrander, 2016
