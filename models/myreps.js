@@ -52,7 +52,7 @@ module.exports = mongoose.model('myreps',
     address: {
       street: String,
       city: String,
-      zip: Number,
+      zip: String,
       state: String,
       stateName: String,
       county: String

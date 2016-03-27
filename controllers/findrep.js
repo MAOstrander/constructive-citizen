@@ -19,10 +19,27 @@ function apiSearch(searchTerms, req, res, resolve) {
 
     var parsedData = JSON.parse(data);
 
+    if (!parsedData.divisions) {
+      resolve('nope');
+      return;
+    }
+
     // Find the state and state name
-    let state = parsedData.normalizedInput.state;
-    state = state.toLowerCase();
+    let state;
+    if (parsedData.normalizedInput.state) {
+      state = parsedData.normalizedInput.state;
+      state = state.toLowerCase();
+    } else {
+      let stateIndex = data.indexOf('us/state:');
+      state = data.substr(stateIndex + 9, 2);
+    }
     let stateName = parsedData.divisions[`ocd-division/country:us/state:${state}`].name;
+
+    // Sanitize zip
+    let myZip = "Not Found";
+    if (parsedData.normalizedInput.zip) {
+      myZip = parsedData.normalizedInput.zip
+    }
 
     // Find the county
     let countyIndex = data.indexOf('/county:');
@@ -31,6 +48,7 @@ function apiSearch(searchTerms, req, res, resolve) {
     if (county.indexOf("/") > 0) {
       county = county.substring(0, county.indexOf("/"));
     }
+    console.log("county", county);
     let mayorOfficeIndices = parsedData.divisions[`ocd-division/country:us/state:${state}/county:${county}`].officeIndices; // list of county offices, in hopes of finding the mayor
 
     // Find the Congressional District
@@ -159,7 +177,7 @@ function apiSearch(searchTerms, req, res, resolve) {
       address: {
         street: parsedData.normalizedInput.line1,
         city: parsedData.normalizedInput.city,
-        zip: parsedData.normalizedInput.zip,
+        zip: myZip,
         state: state,
         stateName: stateName,
         county: county
@@ -259,7 +277,11 @@ module.exports.findSearchDisplay = (req, res) => {
   });
 
   reps.then( val => {
-    res.render('find', {personsReps: val});
+    if (val === 'nope') {
+      res.render('find', {message: "Invalid Address"});
+    } else {
+      res.render('find', {personsReps: val});
+    }
   });
 };
 

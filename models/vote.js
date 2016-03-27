@@ -14,7 +14,7 @@ module.exports = mongoose.model('Vote',
       street: String,
       city: String,
       state: String,
-      zip: Number
+      zip: String
     },
     allElections: Object,
     elections: Object,
