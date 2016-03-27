@@ -5,7 +5,7 @@ block content
     section.row#top-banner
       //- img.denizen
       h1.col-xs-offset-2 From Denizen...
-      h1.col-xs-offset-6 ...to Citizen!
+      h1.col-xs-offset-8 ...to Citizen!
       //- h1.pull-right ...to Citizen!
       //- img.citizen
 
@@ -17,36 +17,39 @@ block content
       .col-sm-10.col-sm-offset-1
         section.please-login
           p Being an active citizen can be overwhelming at first!
-          .rowdif
+          .row
             a(href="/register")
-              h2.line Sign up
-              img.line(src="images/Star.gif")
-              h2.line Log In
+              button.btn.btn-mat.btn-success(type="button") Sign up
+              button.btn.btn-mat.btn-primary(type="button") Log in
           p Sign in to go the the Informed Voter Track
 
         section#voter-track
           .row
-            .col-xs-4
+            .col-xs-4.arrow
               h1 1
               p How Government Works
           .row
-            .col-xs-4.col-xs-offset-4
+            .col-xs-4.col-xs-offset-4.arrow
               h1 2
               p Who represents me?
           .row
-            .col-xs-4.col-xs-offset-8
+            .col-xs-4.col-xs-offset-8.arrow
               h1 3
               p Get Involved!
 
         section#info-finder
-          h1 Find Your Representatives
-          form(action="/findrep" method="post")
-            label(for="address") Where is your legal residence:
-            input(type="text" name="address" placeholder="Enter your address here")
-            input(type="submit" value="Look up my info")
+          h1 Who Represents YOU in the Government?!
+          p Use your address to find the politicians in your area that represent you
+          .row
+            form(action="/findrep" method="post").col-xs-8.col-xs-offset-2
+              .input-group
+                input.form-control(type="text" name="address" placeholder="Enter Your Legal Residence Here...")
+                span.input-group-btn
+                  input.btn.btn-primary(type="submit" value="Look up my info")
 
         section#why-involved.well
           h1 Why You Should Be Involved!
+
           .row
             .col-xs-4
               p To make democracy work, we must be a notion of participants, not simply observers. ~Louis L'Amour
