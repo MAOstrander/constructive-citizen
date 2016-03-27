@@ -15,6 +15,8 @@ const PersonSchema = mongoose.Schema({
   city: String,
   state: String,
   zip: String,
+  isCitizen: Boolean,
+  overEighteen: Boolean,
   canVote: Boolean
 });
 

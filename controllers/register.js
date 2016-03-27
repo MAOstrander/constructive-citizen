@@ -25,9 +25,12 @@ module.exports.signout = (req, res) => {
 module.exports.signup = (req, res) => {
   const dob = new Date(req.body.byear, req.body.bmonth, req.body.bday);
   const now = new Date();
+
   // If the person is not a citizen or less than 18 they can't currently vote
-  let canVote = req.body.citizen;
-  if ((now - dob) < (18 * 365 * 24 * 60 * 60 * 1000)) {
+  let isCitizen = req.body.citizen;
+  let canVote = isCitizen;
+  let overEighteen = (now - dob) > (18 * 365 * 24 * 60 * 60 * 1000);
+  if (!overEighteen) {
     canVote = false;
   }
 
@@ -41,6 +44,8 @@ module.exports.signup = (req, res) => {
     city: req.body.city,
     state: req.body.state,
     zip: req.body.zip,
+    isCitizen: isCitizen,
+    overEighteen: overEighteen,
     canVote: canVote
   });
 

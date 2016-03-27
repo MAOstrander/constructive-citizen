@@ -1,12 +1,40 @@
-h3 The following websites may be helpful
-h5
-  a(href="#{actionInfo.stateElectionInfo}") State Election Information
-if actionInfo.localElectionInfo != "Not Found"
-  h5
-    a(href="#{actionInfo.localElectionInfo}") Local Election Information
-h5
-  a(href="#{actionInfo.registrationStatus}") Check if and where you are registered
-h5
-  a(href="#{actionInfo.registrationToVote}") What you need to do to register to vote
-h5
-  a(href="#{actionInfo.whereToVote}") Where you need to go to vote
+p.largest Exercise Your Right to Vote!
+      .row
+        .col-sm-4
+          .row
+            if locals.user
+              .col-sm-12
+                h1 Your Status:
+              .col-sm-offset-3.col-sm-9
+                if locals.user.overEighteen
+                  p.large.left <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span> Over 18
+                else
+                  p.large.left <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span> Over 18
+                if locals.user.isCitizen
+                  p.large.left <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span> US Citizen
+                else
+                  p.large.left <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span> US Citizen
+            else
+              .col-sm-12
+                h1 <a href="/register">Log In</a> for Your Status:
+              .col-sm-offset-3.col-sm-9
+                p.large.left <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span> Over 18
+                p.large.left <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span> US Citizen
+
+        .col-sm-8.left.local-col
+          .row
+            .col-sm-6
+              h2 Register to vote
+              h3
+                a(href="#{actionInfo.registrationStatus}") Check if and where you are registered
+              h3
+                a(href="#{actionInfo.registrationToVote}") What you need to do to register to vote
+            .col-sm-6
+              h2 Polling Information
+              h3
+                a(href="#{actionInfo.stateElectionInfo}") State Election Information
+              if actionInfo.localElectionInfo != "Not Found"
+                h3
+                  a(href="#{actionInfo.localElectionInfo}") Local Election Information
+              h3
+                a(href="#{actionInfo.whereToVote}") Where you need to go to vote

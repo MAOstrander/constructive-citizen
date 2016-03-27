@@ -15,7 +15,7 @@ block content
           input.form-control(type="text" name="address" placeholder="Enter Your Legal Residence Here...")
           span.input-group-btn
             input.btn.btn-primary(type="submit" value="Look up my info")
-    if locals.user
+    if !locals.user
       h4 Tired of typing in your address all the time? <a href="/register">Register</a> to automate this process!
 
   if personsReps

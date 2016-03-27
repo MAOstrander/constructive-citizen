@@ -32,6 +32,11 @@ body {
   background-size: cover;
   background-position: top;
 }
+#action-banner {
+  background-image: url("../images/participate.JPG");
+  background-size: cover;
+  background-position: top;
+}
 
 #index-banner h1 {
   font-family: dancing;
@@ -47,7 +52,7 @@ body {
 .please-login {
   font-size: 30px;
 }
-.please-login, .info-finder, #voter-track, #why-involved, #info-banner, #crash, #prez-poster, #findrep-banner, .address, #federal, #state, #local, #closing, footer {
+.please-login, .info-finder, #voter-track, #why-involved, #info-banner, #crash, #prez-poster, #findrep-banner, .address, #federal, #state, #local, #closing, #action-banner, #voter-info, #election-info, footer {
   text-align: center;
 }
 
@@ -130,6 +135,9 @@ section {
   border-right: 1px solid black;
 }
 
+.left {
+  text-align: left;
+}
 .large {
   font-size: 32px;
 }
@@ -138,6 +146,10 @@ section {
   margin-top: 50px;
   font-weight: bold;
   font-size: 40px;
+}
+.largest {
+  font-weight: bold;
+  font-size: 48px;
 }
 
 .bold-address {
