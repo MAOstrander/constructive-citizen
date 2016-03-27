@@ -102,21 +102,18 @@ block content
             .row
               .col-xs-3
                 .input-group
-                  label(for='zip') Zipcope
+                  label(for='zip') Zipcode
               .col-xs-9
                 input.form-control(type='number', name='zip', value='#{locals.user.zip}', min='00000', max='99999')
             .row
               .col-xs-3
                 .input-group
-                  label(for='notes') Are you a US Citizen?
+                  label(for='notes') Citizenship
               .col-xs-9
-                .row
-                  .col-xs-4
-                    label Yes -
-                      input(type='radio' name='citizen', value='true', checked)
-                  .col-xs-4
-                    label No -
-                      input(type='radio' name='citizen', value='false')
+                .form-group
+                  select.form-control(name='citizen')
+                    option(value='true' selected) Yes, I am a US Citizen
+                    option(value='false') No, I am not a US Citizen
             .row
               .col-xs-5.col-xs-offset-7
                 button.btn.btn-default(type="button", data-dismiss="modal") Close
