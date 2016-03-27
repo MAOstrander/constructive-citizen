@@ -27,6 +27,12 @@ body {
   background-position: top;
 }
 
+#findrep-banner {
+  background-image: url("../images/findreps.jpg");
+  background-size: cover;
+  background-position: top;
+}
+
 #index-banner h1 {
   font-family: dancing;
   font-size: 75px;
@@ -41,14 +47,19 @@ body {
 .please-login {
   font-size: 30px;
 }
-.please-login, #info-finder, #voter-track, #why-involved, #info-banner, #crash, #prez-poster, footer {
+.please-login, .info-finder, #voter-track, #why-involved, #info-banner, #crash, #prez-poster, #findrep-banner, .address, #federal, #state, #local, #closing, footer {
   text-align: center;
 }
 
-section#voter-track, section#prez-poster {
+section#voter-track {
   border-top: 3px solid black;
   border-bottom: 3px solid black;
 }
+section#prez-poster {
+  border-top: 2px solid gray;
+  border-bottom: 2px solid gray;
+}
+
 section#info-finder p, section#crash p {
   font-size: 24px;
 }
@@ -86,6 +97,10 @@ section {
   height: 100%;
 }
 
+.fed-col {
+  border-right: 2px solid gray;
+}
+
 .arrow {
   background-color: white;
 }
@@ -109,4 +124,18 @@ section {
   box-sizing: border-box;
   border-left: 1px solid black;
   border-right: 1px solid black;
+}
+
+.large {
+  font-size: 32px;
+}
+
+.larger {
+  margin-top: 50px;
+  font-weight: bold;
+  font-size: 40px;
+}
+
+.bold-address {
+  font-weight: bolder;
 }

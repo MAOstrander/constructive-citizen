@@ -17,9 +17,10 @@ nav.navbar.navbar-default.navbar-fixed-top.navbar-inverse
         if locals.user
           li <a href="/profile">Your Profile</a>
 
-      ul.nav.navbar-nav.navbar-right
-        if locals.user
-          form#logout-form(action='/login?_method=delete', method='POST')
+      if locals.user
+        form#logout-form(action='/login?_method=delete', method='POST')
+          ul.nav.navbar-nav.navbar-right
             li <a id="log-out">Log Out</a>
-        else
-          li <a href="/register">Log In</a>
+      else
+        ul.nav.navbar-nav.navbar-right
+          li <a href="/register">Log In / Sign Up</a>

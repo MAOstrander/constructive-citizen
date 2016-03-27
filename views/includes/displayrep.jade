@@ -1,31 +1,102 @@
-h1 Here's what we found!
+section#federal
+  .row
+    .fed-col.col-sm-4
+      h1 Federal Level Representatives
+      p.larger 100
+      p.large US Senators
+      p.larger 435
+      p.large House of Representatives
+      p.larger 535
+      p.large Members of Congress
+    .col-sm-8
+      h2 Your Senators
+      .row
+        #senator1.col-sm-6
+          img(src="#{personsReps.senator1.photo}")
+          h3 United States Senator
+          p Name: #{personsReps.senator1.name}
+          if personsReps.senator1.website != "Not Found"
+            p Website: <a href="#{personsReps.senator1.website}">#{personsReps.senator1.name}</a>
+          if personsReps.senator1.email != "Not Found"
+            p Email: #{personsReps.senator1.email}
 
-section#sanitized
-  p Street: #{personsReps.address.street}
-  p City: #{personsReps.address.city}, County: #{personsReps.address.county}
-  p State: #{personsReps.address.state}, ZIP: #{personsReps.address.zip}
-  p Congressional Distrct: #{personsReps.congressDistrict}, State Level Upper House District: #{personsReps.stateSenateDistrict}, State Level Lower House District: #{personsReps.stateHouseDistrict}
-section#federal.row
-  include ./fedresults.jade
+        #senator2.col-sm-6
+          img(src="#{personsReps.senator2.photo}")
+          h3 United States Senator
+          p Name: #{personsReps.senator2.name}
+          if personsReps.senator2.website != "Not Found"
+            p Website: <a href="#{personsReps.senator2.website}">#{personsReps.senator2.name}</a>
+          if personsReps.senator2.email != "Not Found"
+            p Email: #{personsReps.senator2.email}
+      .row
+        .col-sm-12
+          h2 You are represented in Congressional District #{personsReps.congressDistrict}
+      .row
+        #congressman.col-sm-4.col-sm-offset-2
+          img(src="#{personsReps.congressMember.photo}")
+        .col-sm-4
+          h3 United States Congress Member
+          p Name: #{personsReps.congressMember.name}
+          if personsReps.congressMember.website != "Not Found"
+            p Website: <a href="#{personsReps.congressMember.website}">#{personsReps.congressMember.name}</a>
+          if personsReps.congressMember.email != "Not Found"
+            p Email: #{personsReps.congressMember.email}
 
-section#state.row
-  include ./stateresults.jade
+section#state
+  .row.arrow
+    .fed-col.col-sm-4
+      h1 State Level Representatives
+    .col-sm-8
+      .row
+        h2 You are represented in State Upper House District #{personsReps.stateSenateDistrict}
+        h2 State Level Lower House District #{personsReps.stateHouseDistrict}
+        #governor.col-xs-4
+          img(src=personsReps.governor.photo)
+          h3 Governor
+          p Name: #{personsReps.governor.name}
+          if personsReps.governor.website != "Not Found"
+            p Website: <a href="#{personsReps.governor.website}">#{personsReps.governor.name}</a>
+          if personsReps.governor.email != "Not Found"
+            p Email: #{personsReps.governor.email}
+
+        #stateSenator.col-xs-4
+          img(src=personsReps.stateSenator.photo)
+          h3 State Senator
+          p Name: #{personsReps.stateSenator.name}
+          if personsReps.stateSenator.website != "Not Found"
+            p Website: <a href="#{personsReps.stateSenator.website}">#{personsReps.stateSenator.name}</a>
+          if personsReps.stateSenator.email != "Not Found"
+            p Email: #{personsReps.stateSenator.email}
+
+        #stateHouse.col-xs-4
+          img(src=personsReps.stateHouse.photo)
+          h3 State Congress Member
+          p Name: #{personsReps.stateHouse.name}
+          if personsReps.stateHouse.website != "Not Found"
+            p Website: <a href="#{personsReps.stateHouse.website}">#{personsReps.stateHouse.name}</a>
+          if personsReps.stateHouse.email != "Not Found"
+            p Email: #{personsReps.stateHouse.email}
 
 if personsReps.mayor.name != "Not Found"
-  section#local.row
-    h2 Local Level Representative
-    #mayor.col-xs-10.col-xs-offset-1
-      img(src=personsReps.mayor.photo)
-      h3 Mayor
-      p Name: #{personsReps.mayor.name}
-      if personsReps.mayor.website != "Not Found"
-        p Website: <a href="#{personsReps.mayor.website}">#{personsReps.mayor.name}</a>
-      if personsReps.mayor.email != "Not Found"
-        p Email: #{personsReps.mayor.email}
-section#closing.row
-  .col-xs-4
-    a(href="/register") Save this info?
-  .col-xs-4
-    a(href="/findrep") Search for a different address?
-  .col-xs-4
-    p "What went wrong?" There may be some information that is either out of date or was unable to be located. In a constantly evolving landscape we do our best to stay up date, but in the meantime just keep checking back!
+  section#local
+    .row
+      .fed-col.col-sm-4
+        h1 Local Level Representative
+      .col-sm-8
+        .row
+          #mayor.col-xs-10.col-xs-offset-1
+            img(src=personsReps.mayor.photo)
+            h3 Mayor
+            p Name: #{personsReps.mayor.name}
+            if personsReps.mayor.website != "Not Found"
+              p Website: <a href="#{personsReps.mayor.website}">#{personsReps.mayor.name}</a>
+            if personsReps.mayor.email != "Not Found"
+              p Email: #{personsReps.mayor.email}
+section#closing
+  .row
+    .col-xs-4
+      a(href="/register") Save this info?
+    .col-xs-4
+      a(href="/findrep") Search for a different address?
+    .col-xs-4
+      p "What went wrong?" There may be some information that is either out of date or was unable to be located. In a constantly evolving landscape we do our best to stay up date, but in the meantime just keep checking back!

@@ -1,19 +1,30 @@
 extends ../templates/basic.jade
 
 block content
-  h1 Find your representatives in the government
+  .jumbotron#findrep-banner
+    section.row
+      h1.col-xs-12 (2)
+      h1.col-xs-12 Find Your Representatives in the Government
 
-  section.row.blue
-    form(action="/findrep" method="post")
-      div
-        label(for="address") Where is your legal residence:
-        input(type="text" name="address" placeholder="type your address here")
-
-      input(type="submit" value="Look up my info")
-    h4 Tired of typing in your address all the time? <a href="/register">Register</a> to automate this process!
+  section.info-finder
+    h1 Who Represents YOU in the Government?!
+    p Use your address to find the politicians in your area that represent you
+    .row
+      form(action="/findrep" method="post").col-xs-8.col-xs-offset-2
+        .input-group
+          input.form-control(type="text" name="address" placeholder="Enter Your Legal Residence Here...")
+          span.input-group-btn
+            input.btn.btn-primary(type="submit" value="Look up my info")
+    if locals.user
+      h4 Tired of typing in your address all the time? <a href="/register">Register</a> to automate this process!
 
   if personsReps
+    section.address
+      .row.arrow
+        .col-sm-3
+          h2 Address Searched
+        .col-sm-9
+          h3 <span class="bold-address">Street:</span> #{personsReps.address.street}, <span class="bold-address">City:</span> #{personsReps.address.city}, <span class="bold-address">State:</span> #{personsReps.address.state}, <span class="bold-address">ZIP:</span> #{personsReps.address.zip}
+
     include ./includes/displayrep.jade
 
-  if locals.user
-    h3 #{locals.user._id}
