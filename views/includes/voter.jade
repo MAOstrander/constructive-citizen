@@ -26,15 +26,15 @@ p.largest Exercise Your Right to Vote!
             .col-sm-6
               h2 Register to vote
               h3
-                a(href="#{actionInfo.registrationStatus}") Check if and where you are registered
+                a(href="#{actionInfo.registrationStatus}" target="_blank") Check if and where you are registered
               h3
-                a(href="#{actionInfo.registrationToVote}") What you need to do to register to vote
+                a(href="#{actionInfo.registrationToVote}" target="_blank") What you need to do to register to vote
             .col-sm-6
               h2 Polling Information
               h3
-                a(href="#{actionInfo.stateElectionInfo}") State Election Information
+                a(href="#{actionInfo.stateElectionInfo}" target="_blank") State Election Information
               if actionInfo.localElectionInfo != "Not Found"
                 h3
-                  a(href="#{actionInfo.localElectionInfo}") Local Election Information
+                  a(href="#{actionInfo.localElectionInfo}" target="_blank") Local Election Information
               h3
-                a(href="#{actionInfo.whereToVote}") Where you need to go to vote
+                a(href="#{actionInfo.whereToVote}" target="_blank") Where you need to go to vote
