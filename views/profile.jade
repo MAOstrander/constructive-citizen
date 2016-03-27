@@ -5,7 +5,6 @@ block content
     section.row
       h1.col-xs-12 #{locals.user.fName}'s Profile
 
-  //- info about the user
   section#election-info
     .row
       p.largest User Info
@@ -30,15 +29,16 @@ block content
         p.largest Reminders
         p.large With so much to do, add a reminder to help you stay on track!
         button.btn.btn-primary.btn-reminder(type="button", data-toggle="modal", data-target="#reminderModal") Create Reminder
-    .row
-      each val, index in reminders
-        .col-sm-3.col-xs-6
-          .thumbnail
-            h3= val.what
-            h4= val.when.toString().substring(0, 15)
-            if val.notes
-              .caption
-                p= val.notes
+    .container
+      .row
+        each val, index in reminders
+          .col-sm-3.col-xs-6
+            .thumbnail
+              h3= val.what
+              h4= val.when.toString().substring(0, 15)
+              if val.notes
+                .caption
+                  p= val.notes
 
   #reminderModal.modal.fade(tabindex="-1", role="dialog", aria-labelledby="reminderLabel")
     .modal-dialog(role="document")

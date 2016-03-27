@@ -30,29 +30,30 @@ block content
       include ./includes/voter.jade
 
     section#election-info
-      .row
-        .col-sm-12
-          p.largest Participate in Elections
-      .row.arrow
-        .col-sm-4
-          h2 Upcoming US Elections
-        .col-sm-8.local-col.left
-          each thing, index in actionInfo.allElections
-            h3= "What: " + thing.name
-            h4= "When: " + thing.electionDay
-      .row
-        h1 Elections in Your State
-        each title, index in actionInfo.stateElections
-          .row
-            h3= 'Candidates for ' + title.office
-            each val, index in title.candidates
-              .col-sm-3
-                .thumbnail
-                  h4= val.name
-                  p= 'Party: ' + val.party
-                  if val.candidateUrl
-                    p Website:
-                      a(href="#{val.candidateUrl}") #{val.name}
+      .container
+        .row
+          .col-sm-12
+            p.largest Participate in Elections
+        .row.arrow
+          .col-sm-4
+            h2 Upcoming US Elections
+          .col-sm-8.local-col.left
+            each thing, index in actionInfo.allElections
+              h3= "What: " + thing.name
+              h4= "When: " + thing.electionDay
+        .row
+          h1 Elections in Your State
+          each title, index in actionInfo.stateElections
+            .row
+              h3= 'Candidates for ' + title.office
+              each val, index in title.candidates
+                .col-sm-3
+                  .thumbnail
+                    h4= val.name
+                    p= 'Party: ' + val.party
+                    if val.candidateUrl
+                      p Website:
+                        a(href="#{val.candidateUrl}") #{val.name}
 
     section#make-change.arrow
       .row
@@ -60,7 +61,7 @@ block content
           p.largest Petition for Change
       .row
         .col-xs-8.col-xs-offset-2
-          p.large The right to petition is guaranteed by the First Ammendment. Petitions are an important way to appeal for a particular cause
+          p.large The right to petition is guaranteed by the First Ammendment. Petitions are an important way to appeal for a particular cause.
       .row
         .col-sm-5.col-xs-offset-1.fed-col.local-col
           h1 <span class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span>
