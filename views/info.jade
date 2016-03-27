@@ -1,28 +1,46 @@
 extends ../templates/basic.jade
 
 block content
-  h1 Here's an aggregated list of resources
+  .jumbotron#info-banner
+    section.row
+      h1.col-xs-12 (1)
+      h1.col-xs-12 Learn About Your Government
 
-  h2 That's not all, it's best to understand how the pieces of the government fit together
-  ul
-    li What do each of those people listed above do?
-    li How does the government work on a local level?
-    li How does the government work on the state level?
-    li How does the government work on the federal level?
-    li What services does the government provide at various levels?
+  .container-fluid
+      .row
+        .col-sm-8.col-sm-offset-2
+          section#crash
+            h2 Crash Course
+            p <a href="https://www.youtube.com/playlist?list=PL8dPuuaLjXtOfse2ncvffeelTrqvhrz8H" target="_blank">The Crash Course in Government and Politics</a> is a YouTube playlist covering the basic structure of the government and the politics that influence legislation. It's not a replacement for a full civics course, but it'll get you up and running!
+            .row
+              .col-sm-4
+                h2 50 Videos
+              .col-sm-4.col-mid
+                h2 Each < 10 Minutes
+              .col-sm-4
+                h2 8.5 Hours max
+            .row
+              .col-sm-12
+                p That's half a season of The West Wing or 9 episodes of House of Cards
+                .video-frame
+                  iframe(width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=PL8dPuuaLjXtOfse2ncvffeelTrqvhrz8H" frameborder="0" allowfullscreen)
 
-  section
-    h3 Main Governmental Page:
-      a(href="https://www.usa.gov/" target="_blank") www.usa.gov/
-    h3 Senate Website:
-      a(href="http://www.senate.gov/index.htm" target="_blank")  senate.gov
-    h3 House of Representatives Website:
-      a(href="http://www.house.gov/" target="_blank")  house.gov
-    h3 Presidential Requirements:
-      a(href="https://kids.usa.gov/president/index.shtml" target="_blank")  How to be president
+      .row
+        section#prez-poster
+          img(src="images/PresProcess.gif")
+          p More info on How to be President and other topics at:
+            a(href="https://kids.usa.gov/president/index.shtml" target="_blank")  kids.usa.gov
 
-    h3 Online tutorial videos:
-      a(href="https://www.youtube.com/playlist?list=PL8dPuuaLjXtOfse2ncvffeelTrqvhrz8H" target="_blank")  Crash Course in Government and Politics
+      .row
+        section#learn-more
+          .col-sm-3
+            h1 More Resources
+          .col-sm-9.split
+            h3 Main Governmental Page:
+              a(href="https://www.usa.gov/" target="_blank")  www.usa.gov
+            h3 Senate Website:
+              a(href="http://www.senate.gov/index.htm" target="_blank")  senate.gov
+            h3 House of Representatives Website:
+              a(href="http://www.house.gov/" target="_blank")  house.gov
 
-    .video-frame
-      iframe(width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=PL8dPuuaLjXtOfse2ncvffeelTrqvhrz8H" frameborder="0" allowfullscreen)
+

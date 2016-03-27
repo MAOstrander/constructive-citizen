@@ -9,48 +9,47 @@ body {
 }
 
 .jumbotron {
+  border-bottom: 7px solid white;
+  padding-bottom: 100px;
+  color: #F5E7C2;
+  text-shadow: 2px 2px black;
+}
+
+#index-banner {
   background-image: url("../images/banner.gif");
   background-size: cover;
   background-position: center;
-  padding-bottom: 100px;
-  border-bottom: 7px solid white;
-  color: #F5E7C2;
 }
-#top-banner h1 {
+
+#info-banner {
+  background-image: url("../images/learn.gif");
+  background-size: cover;
+  background-position: top;
+}
+
+#index-banner h1 {
   font-family: dancing;
   font-size: 75px;
-  text-shadow: 1px 1px black;
 }
 
 #tagline {
   margin-top: 100px;
   font-size: 30px;
   text-align: center;
-  text-shadow: 1px 1px black;
 }
 
 .please-login {
   font-size: 30px;
 }
-.please-login, #info-finder, #voter-track, #why-involved, footer {
+.please-login, #info-finder, #voter-track, #why-involved, #info-banner, #crash, #prez-poster, footer {
   text-align: center;
 }
 
-/*Creating the signup banner*/
-.line {
-  display: inline;
-}
-.rowdif {
-  text-align: center;
-  vertical-align: middle;
-  line-height: 150px;
-}
-
-section#voter-track {
+section#voter-track, section#prez-poster {
   border-top: 3px solid black;
   border-bottom: 3px solid black;
 }
-section#info-finder p {
+section#info-finder p, section#crash p {
   font-size: 24px;
 }
 section#why-involved p {
@@ -58,16 +57,14 @@ section#why-involved p {
   font-size: 24px;
 }
 
-.fa {
-  font-size: 150px;
-}
-.roadmap img {
-  width: 150px;
-}
-
 section img {
   width: 150px;
 }
+
+section#prez-poster img {
+  width: 100%;
+}
+
 section {
   padding-top: 25px;
   padding-bottom: 25px;
@@ -101,6 +98,11 @@ section {
   height: 75px;
   margin-left: 25px;
   margin-right: 25px;
+}
+
+.split {
+  box-sizing: border-box;
+  border-left: 2px solid black;
 }
 
 .col-mid {
