@@ -101,6 +101,10 @@ section {
   border-right: 2px solid gray;
 }
 
+.local-col {
+  border-left: 2px solid gray;
+}
+
 .arrow {
   background-color: white;
 }

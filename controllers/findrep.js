@@ -34,12 +34,15 @@ function apiSearch(searchTerms, req, res, resolve) {
       state = data.substr(stateIndex + 9, 2);
     }
     let stateName = parsedData.divisions[`ocd-division/country:us/state:${state}`].name;
+    console.log("state", state);
+    console.log("stateName", stateName);
 
     // Sanitize zip
     let myZip = "Not Found";
     if (parsedData.normalizedInput.zip) {
       myZip = parsedData.normalizedInput.zip
     }
+    console.log("myZip", myZip);
 
     // Find the county
     let countyIndex = data.indexOf('/county:');
@@ -49,7 +52,10 @@ function apiSearch(searchTerms, req, res, resolve) {
       county = county.substring(0, county.indexOf("/"));
     }
     console.log("county", county);
-    let mayorOfficeIndices = parsedData.divisions[`ocd-division/country:us/state:${state}/county:${county}`].officeIndices; // list of county offices, in hopes of finding the mayor
+    let mayorOfficeIndices = [];
+    if (parsedData.divisions[`ocd-division/country:us/state:${state}/county:${county}`]) {
+      mayorOfficeIndices = parsedData.divisions[`ocd-division/country:us/state:${state}/county:${county}`].officeIndices; // list of county offices, in hopes of finding the mayor
+    }
 
     // Find the Congressional District
     let cdIndex = data.indexOf('/cd:')
@@ -105,16 +111,16 @@ function apiSearch(searchTerms, req, res, resolve) {
       myMayor.photoUrl = "images/profile.png";
     }
 
-
+    // Currently crashes if sldu is not found
     let slduIndex = data.indexOf('/sldu:')
-    let sldu = parseInt( data.substr(slduIndex + 6, 2) );
+    let sldu = parseInt( data.substr(slduIndex + 6, 3) );
     let stateSenateOfficeIndex = parsedData.divisions[`ocd-division/country:us/state:${state}/sldu:${sldu}`].officeIndices[0];
     let stateSenateOfficialIndex = parsedData.offices[stateSenateOfficeIndex].officialIndices[0];
     const stateLevelSenate = parsedData.officials[stateSenateOfficialIndex];
     stateLevelSenate.email = stateLevelSenate.emails ? stateLevelSenate.emails[0] : "Not Found";
 
     let sldlIndex = data.indexOf('/sldl:')
-    let sldl = parseInt( data.substr(sldlIndex + 6, 2) );
+    let sldl = parseInt( data.substr(sldlIndex + 6, 3) );
     let stateHouseOfficeIndex = parsedData.divisions[`ocd-division/country:us/state:${state}/sldl:${sldl}`].officeIndices[0];
     let stateHouseOfficialIndex = parsedData.offices[stateHouseOfficeIndex].officialIndices[0];
     const stateLevelHouse = parsedData.officials[stateHouseOfficialIndex];

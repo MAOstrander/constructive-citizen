@@ -14,7 +14,7 @@ section#federal
         #senator1.col-sm-6
           img(src="#{personsReps.senator1.photo}")
           h3 United States Senator
-          p Name: #{personsReps.senator1.name}
+          h4 #{personsReps.senator1.name}
           if personsReps.senator1.website != "Not Found"
             p Website: <a href="#{personsReps.senator1.website}">#{personsReps.senator1.name}</a>
           if personsReps.senator1.email != "Not Found"
@@ -23,7 +23,7 @@ section#federal
         #senator2.col-sm-6
           img(src="#{personsReps.senator2.photo}")
           h3 United States Senator
-          p Name: #{personsReps.senator2.name}
+          h4 #{personsReps.senator2.name}
           if personsReps.senator2.website != "Not Found"
             p Website: <a href="#{personsReps.senator2.website}">#{personsReps.senator2.name}</a>
           if personsReps.senator2.email != "Not Found"
@@ -36,7 +36,7 @@ section#federal
           img(src="#{personsReps.congressMember.photo}")
         .col-sm-4
           h3 United States Congress Member
-          p Name: #{personsReps.congressMember.name}
+          h4 #{personsReps.congressMember.name}
           if personsReps.congressMember.website != "Not Found"
             p Website: <a href="#{personsReps.congressMember.website}">#{personsReps.congressMember.name}</a>
           if personsReps.congressMember.email != "Not Found"
@@ -44,16 +44,18 @@ section#federal
 
 section#state
   .row.arrow
-    .fed-col.col-sm-4
+    .col-sm-4
       h1 State Level Representatives
-    .col-sm-8
+      if personsReps.address.stateName
+        h1 #{personsReps.address.stateName}
+    .local-col.col-sm-8
       .row
         h2 You are represented in State Upper House District #{personsReps.stateSenateDistrict}
         h2 State Level Lower House District #{personsReps.stateHouseDistrict}
         #governor.col-xs-4
           img(src=personsReps.governor.photo)
           h3 Governor
-          p Name: #{personsReps.governor.name}
+          h4 #{personsReps.governor.name}
           if personsReps.governor.website != "Not Found"
             p Website: <a href="#{personsReps.governor.website}">#{personsReps.governor.name}</a>
           if personsReps.governor.email != "Not Found"
@@ -62,7 +64,7 @@ section#state
         #stateSenator.col-xs-4
           img(src=personsReps.stateSenator.photo)
           h3 State Senator
-          p Name: #{personsReps.stateSenator.name}
+          h4 #{personsReps.stateSenator.name}
           if personsReps.stateSenator.website != "Not Found"
             p Website: <a href="#{personsReps.stateSenator.website}">#{personsReps.stateSenator.name}</a>
           if personsReps.stateSenator.email != "Not Found"
@@ -71,7 +73,7 @@ section#state
         #stateHouse.col-xs-4
           img(src=personsReps.stateHouse.photo)
           h3 State Congress Member
-          p Name: #{personsReps.stateHouse.name}
+          h4 #{personsReps.stateHouse.name}
           if personsReps.stateHouse.website != "Not Found"
             p Website: <a href="#{personsReps.stateHouse.website}">#{personsReps.stateHouse.name}</a>
           if personsReps.stateHouse.email != "Not Found"
@@ -80,23 +82,21 @@ section#state
 if personsReps.mayor.name != "Not Found"
   section#local
     .row
-      .fed-col.col-sm-4
+      .col-sm-4
         h1 Local Level Representative
-      .col-sm-8
+        if personsReps.address.county
+          h2 In #{personsReps.address.county} county
+      .local-col.col-sm-8
         .row
-          #mayor.col-xs-10.col-xs-offset-1
+          .col-sm-12
+            h2 You live in #{personsReps.address.city}
+        .row
+          #mayor.col-sm-3.col-sm-offset-3
             img(src=personsReps.mayor.photo)
+          .col-sm-3
             h3 Mayor
-            p Name: #{personsReps.mayor.name}
+            h4 #{personsReps.mayor.name}
             if personsReps.mayor.website != "Not Found"
               p Website: <a href="#{personsReps.mayor.website}">#{personsReps.mayor.name}</a>
             if personsReps.mayor.email != "Not Found"
               p Email: #{personsReps.mayor.email}
-section#closing
-  .row
-    .col-xs-4
-      a(href="/register") Save this info?
-    .col-xs-4
-      a(href="/findrep") Search for a different address?
-    .col-xs-4
-      p "What went wrong?" There may be some information that is either out of date or was unable to be located. In a constantly evolving landscape we do our best to stay up date, but in the meantime just keep checking back!
