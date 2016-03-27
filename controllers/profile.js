@@ -7,6 +7,9 @@ const Reminder = require('../models/reminder');
 
 module.exports.dashboard = (req, res) => {
   if (res.locals.user) {
+
+    const date = new Date(res.locals.user.dob);
+    const displayDate = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
     if (res.locals.user.state) {
       var dashReps = new Promise( (resolve, reject) => {
         findrep.findFromDatabase(req, res, resolve);
@@ -22,7 +25,7 @@ module.exports.dashboard = (req, res) => {
           Reminder.find({userID: res.locals.user._id}, (err, reminderList) => {
             if (err) throw err;
 
-            res.render('profile', {personsReps: dashRepsResponse, actionInfo: dashVoteResponse, reminders: reminderList});
+            res.render('profile', {personsReps: dashRepsResponse, actionInfo: dashVoteResponse, reminders: reminderList, displayDate: displayDate});
             console.log("Fully Loaded Profile");
           })
         });
@@ -63,6 +66,7 @@ module.exports.addReminder = (req, res) => {
     what: req.body.what,
     notes: req.body.notes
   });
+    console.log("req.body.when", req.body.when);
 
   newEvent.save( (err) => {
     if (err) throw err;

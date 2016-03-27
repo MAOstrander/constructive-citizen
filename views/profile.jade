@@ -1,48 +1,125 @@
 extends ../templates/basic.jade
 
 block content
-  h1 #{locals.user.fName}'s dashboard
+  .jumbotron#profile-banner
+    section.row
+      h1.col-xs-12 #{locals.user.fName}'s Profile
 
   //- info about the user
-  .row
-    section.col-md-6.blue
-      h2 User Info
-      h3 Name: #{locals.user.fName} #{locals.user.lName}
-      h3 Address:
-      h4 Street: #{locals.user.address}
-      h4 City: #{locals.user.city}  State: #{locals.user.state}  Zipcode: #{locals.user.zip}
-      h3 Voter Status
-      h5 Date of Birth: #{locals.user.dob}
-      h5 Are you a citizen and over 18? #{locals.user.canVote}
+  section#election-info
+    .row
+      p.largest User Info
+      .col-sm-4
+        h2 Name: #{locals.user.fName} #{locals.user.lName}
+        h3 Born: #{displayDate}
+      .col-sm-8.local-col
+        h3 Address Saved:
+        h4 Street: #{locals.user.address}
+        h4 City: #{locals.user.city}  State: #{locals.user.state}  Zipcode: #{locals.user.zip}
+        button.btn.btn-primary(type="button", data-toggle="modal", data-target="#addressModal") Change Address
 
-      button.btn.btn-danger(type="button", data-toggle="modal", data-target="#myModal") Edit Address or Citizenship?
 
-      #myModal.modal.fade(tabindex="-1", role="dialog", aria-labelledby="myModalLabel")
-        .modal-dialog(role="document")
-          .modal-content
-            .modal-header
-              button.close(type="button", data-dismiss="modal", aria-label="Close") <span aria-hidden="true">&times;</span>
-              h4#myModalLabel.modal-title Has anything changed?
-            .modal-body
-              form(method="POST", action='/edit-address?_method=PUT')
-                include ./includes/user-address-form.jade
+  section.voter-info
+    .row.arrow
+      .col-sm-12
+        include ./includes/voter.jade
+
+  section#cal
+    .row
+      .col-sm-12
+        p.largest Reminders
+        p.large With so much to do, add a reminder to help you stay on track!
+        button.btn.btn-primary.btn-reminder(type="button", data-toggle="modal", data-target="#reminderModal") Create Reminder
+    .row
+      each val, index in reminders
+        .col-sm-3.col-xs-6
+          .thumbnail
+            h3= val.what
+            h4= val.when.toString().substring(0, 15)
+            if val.notes
+              .caption
+                p= val.notes
+
+  #reminderModal.modal.fade(tabindex="-1", role="dialog", aria-labelledby="reminderLabel")
+    .modal-dialog(role="document")
+      .modal-content
+        .modal-header
+          button.close(type="button", data-dismiss="modal", aria-label="Close") <span aria-hidden="true">&times;</span>
+          h4#reminderLabel.modal-title What would you like to save?
+        .modal-body
+          form#event-form(method="POST", action='/add-reminder?_method=PUT')
+            .row
+              .col-xs-3
+                .input-group
+                  label(for='what') Title
+              .col-xs-9
+                input.form-control(type='text', name='what', placeholder='What is Happening?', required)
+            .row
+              .col-xs-3
+                .input-group
+                  label(for='when') When is it?
+              .col-xs-9
+                input.form-control(type='date', name='when', required)
+            .row
+              .col-xs-3
+                .input-group
+                  label(for='notes') Any Notes?
+              .col-xs-9
+                textarea.form-control(name="notes" form="event-form")
+            .row
+              .col-xs-4.col-xs-offset-8
+                button.btn.btn-default(type="button", data-dismiss="modal") Close
+                button#add-reminder.btn.btn-primary Save date
+
+
+
+  #addressModal.modal.fade(tabindex="-1", role="dialog", aria-labelledby="addressModalLabel")
+    .modal-dialog(role="document")
+      .modal-content
+        .modal-header
+          button.close(type="button", data-dismiss="modal", aria-label="Close") <span aria-hidden="true">&times;</span>
+          h4#addressModalLabel.modal-title Has anything changed?
+        .modal-body
+          form(method="POST", action='/edit-address?_method=PUT')
+            .row
+              .col-xs-3
+                .input-group
+                  label(for='street') Street Address
+              .col-xs-9
+                input.form-control(type='text', name='street', value='#{locals.user.address}', required)
+            .row
+              .col-xs-3
+                .input-group
+                  label(for='city') City
+              .col-xs-9
+                input.form-control(type='text', name='city', value='#{locals.user.city}', required)
+            .row
+              .col-xs-3
+                .input-group
+                  label(for='state') State
+              .col-xs-9
+                input.form-control(type='text', name='state', value='#{locals.user.state}', required)
+            .row
+              .col-xs-3
+                .input-group
+                  label(for='zip') Zipcope
+              .col-xs-9
+                input.form-control(type='number', name='zip', value='#{locals.user.zip}', min='00000', max='99999')
+            .row
+              .col-xs-3
+                .input-group
+                  label(for='notes') Are you a US Citizen?
+              .col-xs-9
+                .row
+                  .col-xs-4
+                    label Yes -
+                      input(type='radio' name='citizen', value='true', checked)
+                  .col-xs-4
+                    label No -
+                      input(type='radio' name='citizen', value='false')
+            .row
+              .col-xs-5.col-xs-offset-7
                 button.btn.btn-default(type="button", data-dismiss="modal") Close
                 button#edit-address.btn.btn-primary Save changes
 
-    section.col-md-6.red
-      //- Helpful websites particular to the user
-      include ./includes/voter.jade
-  section.red
-      include ./includes/cal.jade
-      //- Calendar of important or upcoming deadlines
-  section.blue
-      //- Messages
-  section
-    //- Election Info for this week
-  section
-    //- General Elections particular to user's state
-    include ./includes/elections.jade
-  section
-    //- Find rep results
-    if personsReps
-      include ./includes/displayrep.jade
+

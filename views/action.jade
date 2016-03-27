@@ -26,7 +26,7 @@ block content
         .col-sm-9
           h3 <span class="bold-address">Street:</span> #{actionInfo.address.street}, <span class="bold-address">City:</span> #{actionInfo.address.city}, <span class="bold-address">State:</span> #{actionInfo.address.state}, <span class="bold-address">ZIP:</span> #{actionInfo.address.zip}
 
-    section#voter-info
+    section.voter-info
       include ./includes/voter.jade
 
     section#election-info
@@ -54,6 +54,20 @@ block content
                     p Website:
                       a(href="#{val.candidateUrl}") #{val.name}
 
-    section#make-change
+    section#make-change.arrow
       .row
+        .col-xs-12
+          p.largest Petition for Change
+      .row
+        .col-xs-8.col-xs-offset-2
+          p.large The right to petition is guaranteed by the First Ammendment. Petitions are an important way to appeal for a particular cause
+      .row
+        .col-sm-5.col-xs-offset-1.fed-col.local-col
+          h1 <span class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span>
+          h1 <a href="http://petitions.whitehouse.gov" target="_blank">Whitehouse.gov</a>
+          h3 If a petition crosses 100,000 signatures within 30 days, the White House will review it and respond
+        .col-sm-5.local-col.fed-col
+          h1 <span class="glyphicon glyphicon-globe" aria-hidden="true"></span>
+          h1 <a href="https://www.change.org/start-a-petition" target="_blank">Change.org</a>
+          h3 Support the causes you care about or start your own in the world's largest petitioning platform
 

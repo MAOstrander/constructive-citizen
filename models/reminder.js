@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 module.exports = mongoose.model('Reminder',
   mongoose.Schema({
     userID: Object,
-    when: Date,
+    when: String,
     what: String,
     notes: String
   })
