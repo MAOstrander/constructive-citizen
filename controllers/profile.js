@@ -68,12 +68,25 @@ module.exports.addReminder = (req, res) => {
     what: req.body.what,
     notes: req.body.notes
   });
-    console.log("req.body.when", req.body.when);
 
   newEvent.save( (err) => {
     if (err) throw err;
 
     res.redirect('/profile');
   });
+}
+
+module.exports.removeReminder = (req, res) => {
+  Reminder.findById(req.params.deleteID)
+    .exec(function(err, doc) {
+      if (err) throw err;
+
+      doc.remove(function(err) {
+        if (err) throw err;
+
+        res.send({})
+      });
+    });
+
 }
 

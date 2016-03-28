@@ -34,6 +34,7 @@ block content
         each val, index in reminders
           .col-sm-3.col-xs-6
             .thumbnail
+              button.close(type="button" id="#{val._id}" onclick="deleteThis(this)") <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
               h3= val.what
               h4= val.when.toString().substring(0, 15)
               if val.notes
