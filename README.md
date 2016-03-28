@@ -1,4 +1,7 @@
 # Denizen to Citizen
+
+![Title Screen](doc-images/title-screen.png)
+
 ### Become more informed and active in your government!
 
 ## About
@@ -38,12 +41,44 @@ You will also need NPM, MongoDB, and Redis-server
 
 To use the deployed online version [click here](https://constructive-citizen.herokuapp.com/), it may take a little bit to load depending on how long since the last user accessed it.
 
-![Add other users](doc-images/title-screen.png)
+There are three main actions for a new user or guest.
+![Learn Find and Elect](doc-images/steps.png)
+1. Learning about the government,  2. Finding your representatives,  3. Looking up election info
 
+These are navigated to from the index page or the navbar at the top of screen.
 
+For election info or representatives a user will need to type in their address into the search prompt. The street address is the most important part, depending on how unique the street is the city or state may also be required.
 
+![Searchbox](doc-images/search.png)
+
+The website will load the search results below and show the exact address it searched for (in case you need to refine your terms).
+
+For the representatives it starts at the Federal level, then the State level, etc.
+
+![Results](doc-images/search-results.png)
+
+For the election info it displays your voting status (based on age and citizenship). Other state based requirements may be applicable, and so links to various sites that allow you to check your registration status and requirements are provided.
+
+![Election and Status](doc-images/elections.png)
+
+A user can also sign up for their own account. This will store their address so they don't have to type it in every time. This address can be changed on the profile page.
+
+![Login](doc-images/login.png)
+
+Also on the profile page, in addition to the your voting status and helpful links, is the ability to set reminders and create your own plan of action in order to stay on top of the political process.
+
+![Reminders](doc-images/reminders.png)
 
 ## Future Plans
 Next Steps:
+Cultivating a more complete lesson plan for how the government works would fill out the information section more.
+
+There are some issues with error handling of bad addresses
+
+Local level information is harder to come by and can vary from state to state in structure (situations like the presence of a city council or county council)
+
+Some of the information provided by the API is out of date or missing. I would like to team up with the local brigade of Code for Nashville in order to create a more accessible and complete API for the local level of government
+
+I would like for different users to be able to find and communicate with each other, in order to share information and provide support
 
 
