@@ -11,7 +11,7 @@ const Myreps = require('../models/myreps');
 const Person = require('../models/person');
 
 function apiSearch(searchTerms, req, res, resolve) {
-
+  console.log("apiSearch Called");
   const url = `https://www.googleapis.com/civicinfo/v2/representatives?address=${searchTerms}&includeOffices=true&key=${API.civicKey}`;
 
     request.get(url, (err, response, data) => {
@@ -34,15 +34,12 @@ function apiSearch(searchTerms, req, res, resolve) {
       state = data.substr(stateIndex + 9, 2);
     }
     let stateName = parsedData.divisions[`ocd-division/country:us/state:${state}`].name;
-    console.log("state", state);
-    console.log("stateName", stateName);
 
     // Sanitize zip
     let myZip = "Not Found";
     if (parsedData.normalizedInput.zip) {
       myZip = parsedData.normalizedInput.zip
     }
-    console.log("myZip", myZip);
 
     // Find the county
     let countyIndex = data.indexOf('/county:');
@@ -51,7 +48,6 @@ function apiSearch(searchTerms, req, res, resolve) {
     if (county.indexOf("/") > 0) {
       county = county.substring(0, county.indexOf("/"));
     }
-    console.log("county", county);
     let mayorOfficeIndices = [];
     if (parsedData.divisions[`ocd-division/country:us/state:${state}/county:${county}`]) {
       mayorOfficeIndices = parsedData.divisions[`ocd-division/country:us/state:${state}/county:${county}`].officeIndices; // list of county offices, in hopes of finding the mayor
@@ -83,7 +79,6 @@ function apiSearch(searchTerms, req, res, resolve) {
 
     for (let i = 0; i < mayorOfficeIndices.length; i++) {
       if (parsedData.offices[mayorOfficeIndices[i]].name === "Metro Mayor" || parsedData.offices[mayorOfficeIndices[i]].name === "Mayor") {
-        console.log("found a mayor?");
         mayorIndex = parsedData.offices[mayorOfficeIndices[i]].officialIndices;
       }
     }
@@ -212,7 +207,7 @@ function apiSearch(searchTerms, req, res, resolve) {
 }
 
 module.exports.initInput = (req, res) => {
-
+  console.log("initInput Called");
   if (res.locals.user) {
     Myreps.findOne({ userID: res.locals.user._id }, function (err, user) {
       if (err) throw err;
@@ -242,40 +237,8 @@ module.exports.initInput = (req, res) => {
 
 };
 
-
-
-module.exports.findFromSearch = (req, res) => {
-  let searchTerms = req.body.address;
-
-  var reps = new Promise( (resolve, reject) => {
-    apiSearch(searchTerms, req, res, resolve);
-  });
-
-  reps.then( val => {
-    return val;
-  });
-}
-
-module.exports.findFromDatabase = (req, res, cbResolve) => {
-  Person.findOne({ _id: res.locals.user._id }, function (err, person) {
-    if (err) throw err;
-
-    let searchTerms = `${person.address} ${person.city} ${person.state} ${person.zip}`;
-    var reps = new Promise( (resolve, reject) => {
-      apiSearch(searchTerms, req, res, resolve);
-    });
-
-    reps.then( val => {
-      if (cbResolve) {
-        cbResolve(val)
-      } else {
-        return val;
-      }
-    });
-  })
-}
-
 module.exports.findSearchDisplay = (req, res) => {
+    console.log("findSearchDisplay Called");
   let searchTerms = req.body.address;
 
   var reps = new Promise( (resolve, reject) => {
@@ -289,20 +252,4 @@ module.exports.findSearchDisplay = (req, res) => {
       res.render('find', {personsReps: val});
     }
   });
-};
-
-module.exports.findDatabaseDisplay = (req, res) => {
-  Person.findOne({ _id: res.locals.user._id }, function (err, person) {
-    if (err) throw err;
-
-    let searchTerms = `${person.address} ${person.city} ${person.state} ${person.zip}`;
-
-    var reps = new Promise( (resolve, reject) => {
-      apiSearch(searchTerms, req, res, resolve);
-    });
-
-    reps.then( val => {
-      res.render('find', {personsReps: val});
-    });
-  })
 };

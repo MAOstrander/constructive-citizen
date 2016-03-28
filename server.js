@@ -24,7 +24,6 @@ const routes = require('./routes/');
 
 app.set('view engine', 'jade');
 
-// app.use(express.static('public'));
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded( {extended: false} ) );
 app.use(bodyParser.json() );
@@ -43,17 +42,8 @@ app.use(passport.session());
 
 app.use((req, res, next) => {
   res.locals.user = req.user;
-  console.log("res.locals.user", res.locals.user);
   next();
 });
-
-// app.use((req, res, next) => {
-//   req.session.visits = req.session.visits || {};
-//   req.session.visits[req.url] = req.session.visits[req.url] || 0;
-//   req.session.visits[req.url]++;
-
-//   next();
-// });
 
 
 app.use(routes);

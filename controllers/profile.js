@@ -1,7 +1,7 @@
 'use strict';
 
-const findrep = require('./findrep');
 const action = require('./action');
+const Myreps = require('../models/myreps');
 const Person = require('../models/person');
 const Reminder = require('../models/reminder');
 
@@ -11,24 +11,17 @@ module.exports.dashboard = (req, res) => {
     const date = new Date(res.locals.user.dob);
     const displayDate = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
     if (res.locals.user.state) {
-      var dashReps = new Promise( (resolve, reject) => {
-        findrep.findFromDatabase(req, res, resolve);
+
+      var dashVote = new Promise( (voteResolve, reject) => {
+        action.voteInfoFromDatabase(req, res, voteResolve);
       });
 
-      dashReps.then( dashRepsResponse => {
+      dashVote.then( dashVoteResponse => {
+        Reminder.find({userID: res.locals.user._id}, (err, reminderList) => {
+          if (err) throw err;
 
-        var dashVote = new Promise( (voteResolve, reject) => {
-          action.voteInfoFromDatabase(req, res, voteResolve);
-        });
-
-        dashVote.then( dashVoteResponse => {
-          Reminder.find({userID: res.locals.user._id}, (err, reminderList) => {
-            if (err) throw err;
-
-            res.render('profile', {personsReps: dashRepsResponse, actionInfo: dashVoteResponse, reminders: reminderList, displayDate: displayDate});
-            console.log("Fully Loaded Profile");
-          })
-        });
+          res.render('profile', {actionInfo: dashVoteResponse, reminders: reminderList, displayDate: displayDate});
+        })
       });
     } else {res.redirect('/');}
   } else {
@@ -38,10 +31,9 @@ module.exports.dashboard = (req, res) => {
 };
 
 module.exports.changeAddress = (req, res) => {
-
   const dob = res.locals.user.dob
   const now = new Date();
-  // If the person is not a citizen or less than 18 they can't currently vote
+
   let isCitizen = req.body.citizen;
   let canVote = isCitizen;
   let overEighteen = (now - dob) > (18 * 365 * 24 * 60 * 60 * 1000);
@@ -56,7 +48,12 @@ module.exports.changeAddress = (req, res) => {
   Person.update(conditions, update, options, (err, say) => {
     if (err) throw err;
 
-    res.redirect('/profile');
+    Myreps.remove({userID: res.locals.user._id}, (err, doc) => {
+      if (err) throw err;
+
+      res.redirect('/profile');
+    });
+
   });
 };
 
