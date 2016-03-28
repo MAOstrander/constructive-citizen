@@ -69,6 +69,8 @@ Also on the profile page, in addition to the your voting status and helpful link
 
 ![Reminders](doc-images/reminders.png)
 
+When you no longer need the reminder, they can be simply deleted.
+
 ## Future Plans
 Next Steps:
 Cultivating a more complete lesson plan for how the government works would fill out the information section more.
