@@ -85,9 +85,11 @@ function apiSearch(searchTerms, req, res, resolve) {
 
     const firstSenator = parsedData.officials[senatorIndices[0]];
     firstSenator.email = firstSenator.emails ? firstSenator.emails[0] : "Not Found";
+    firstSenator.photoUrl = firstSenator.photoUrl ? firstSenator.photoUrl : "images/profile.png";
 
     const secondSenator = parsedData.officials[senatorIndices[1]];
     secondSenator.email = secondSenator.emails ? secondSenator.emails[0] : "Not Found";
+    secondSenator.photoUrl = secondSenator.photoUrl ? secondSenator.photoUrl : "images/profile.png";
 
     const myGovernor = parsedData.officials[governorIndex];
     myGovernor.email = myGovernor.emails ? myGovernor.emails[0] : "Not Found";
@@ -106,21 +108,37 @@ function apiSearch(searchTerms, req, res, resolve) {
       myMayor.photoUrl = "images/profile.png";
     }
 
-    // Currently crashes if sldu is not found
     let slduIndex = data.indexOf('/sldu:')
-    let sldu = parseInt( data.substr(slduIndex + 6, 3) );
-    let stateSenateOfficeIndex = parsedData.divisions[`ocd-division/country:us/state:${state}/sldu:${sldu}`].officeIndices[0];
-    let stateSenateOfficialIndex = parsedData.offices[stateSenateOfficeIndex].officialIndices[0];
-    const stateLevelSenate = parsedData.officials[stateSenateOfficialIndex];
+    let stateLevelSenate = {};
+    let sldu;
+    if (slduIndex > 0) {
+      sldu = parseInt( data.substr(slduIndex + 6, 3) );
+      let stateSenateOfficeIndex = parsedData.divisions[`ocd-division/country:us/state:${state}/sldu:${sldu}`].officeIndices[0];
+      let stateSenateOfficialIndex = parsedData.offices[stateSenateOfficeIndex].officialIndices[0];
+      stateLevelSenate = parsedData.officials[stateSenateOfficialIndex];
+    } else {
+      sldu = 0;
+        stateLevelSenate.name = "Not Found";
+    }
     stateLevelSenate.email = stateLevelSenate.emails ? stateLevelSenate.emails[0] : "Not Found";
+    stateLevelSenate.url = stateLevelSenate.urls ? stateLevelSenate.urls[0] : "Not Found";
+    stateLevelSenate.photoUrl = stateLevelSenate.photoUrl ? stateLevelSenate.photoUrl : "images/profile.png";
 
     let sldlIndex = data.indexOf('/sldl:')
-    let sldl = parseInt( data.substr(sldlIndex + 6, 3) );
-    let stateHouseOfficeIndex = parsedData.divisions[`ocd-division/country:us/state:${state}/sldl:${sldl}`].officeIndices[0];
-    let stateHouseOfficialIndex = parsedData.offices[stateHouseOfficeIndex].officialIndices[0];
-    const stateLevelHouse = parsedData.officials[stateHouseOfficialIndex];
+    let stateLevelHouse = {};
+    let sldl;
+    if (sldlIndex > 0) {
+      sldl = parseInt( data.substr(sldlIndex + 6, 3) );
+      let stateHouseOfficeIndex = parsedData.divisions[`ocd-division/country:us/state:${state}/sldl:${sldl}`].officeIndices[0];
+      let stateHouseOfficialIndex = parsedData.offices[stateHouseOfficeIndex].officialIndices[0];
+      stateLevelHouse = parsedData.officials[stateHouseOfficialIndex];
+    } else {
+      sldu = 0;
+      stateLevelHouse.name = "Not Found";
+    }
     stateLevelHouse.email = stateLevelHouse.emails ? stateLevelHouse.emails[0] : "Not Found";
     stateLevelHouse.url = stateLevelHouse.urls ? stateLevelHouse.urls[0] : "Not Found";
+    stateLevelHouse.photoUrl = stateLevelHouse.photoUrl ? stateLevelHouse.photoUrl : "images/profile.png";
 
 
     let userID = "Guest";
@@ -151,7 +169,7 @@ function apiSearch(searchTerms, req, res, resolve) {
       congressDistrict: cd,
       stateSenator: {
         name: stateLevelSenate.name,
-        website: stateLevelSenate.urls[0],
+        website: stateLevelSenate.url,
         email: stateLevelSenate.email,
         photo: stateLevelSenate.photoUrl
       },
