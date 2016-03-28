@@ -2,9 +2,14 @@ extends ../templates/basic.jade
 
 block content
   .jumbotron#action-banner
-    section.row
-      h1.col-xs-12 (3)
-      h1.col-xs-12 Get Involved!
+    section
+      .row
+        h1.col-xs-12 (3)
+      .row
+        h1.col-xs-12 Get Involved!
+        if message
+          .col-xs-12
+            h2= message
 
   section.info-finder
     h1 Election Information in Your Area

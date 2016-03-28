@@ -140,7 +140,7 @@ module.exports.getInfo = (req, res) => {
   });
 
   newVote.then( val => {
-    res.render('action', {actionInfo: val});
+    res.render('action', {actionInfo: val, message: "Scroll Down to See Results"});
   });
 
 };

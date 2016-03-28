@@ -267,7 +267,7 @@ module.exports.findSearchDisplay = (req, res) => {
     if (val === 'nope') {
       res.render('find', {message: "Invalid Address"});
     } else {
-      res.render('find', {personsReps: val});
+      res.render('find', {personsReps: val, message: "Scroll Down to See Results"});
     }
   });
 };
